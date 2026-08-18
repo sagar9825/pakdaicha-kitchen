@@ -1,2 +1,2 @@
 Flask
-gunicorn# No external pip dependencies needed - pure Python standard library
+gunicorn

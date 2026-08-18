@@ -189,47 +189,15 @@
       background: rgba(90, 40, 8, 0.85);
     }
 
-    /* Clean Center Stage */
+    /* Clean Center Stage - Completely Unobstructed Background */
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       padding: 0 16px;
-      position: relative;
-    }
-
-    /* Big Center Start Button (Visible until playing) */
-    #center-start-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      padding: 18px 36px;
-      border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, #f5a623, #b85e00);
-      color: #fff;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      border: 2px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 166, 35, 0.5);
-      cursor: pointer;
-      transition: transform 0.15s, opacity 0.3s;
-      animation: pulseBtn 2s infinite ease-in-out;
-      z-index: 50;
-    }
-    #center-start-btn:active {
-      transform: scale(0.95);
-    }
-    #center-start-btn.hid {
-      opacity: 0;
       pointer-events: none;
-      visibility: hidden;
-    }
-    @keyframes pulseBtn {
-      0%, 100% { transform: scale(1); box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 25px rgba(245,166,35,0.4); }
-      50% { transform: scale(1.05); box-shadow: 0 16px 50px rgba(0,0,0,0.85), 0 0 45px rgba(245,166,35,0.7); }
     }
 
     /* Player wrap */
@@ -849,11 +817,9 @@
     </nav>
   </header>
 
-  <!-- Center Stage with Clear Start Button -->
+  <!-- Clean, Spacious Center Background for Retro Kitchen View -->
   <main id="main">
-    <button id="center-start-btn" onclick="startRadioNow()">
-      <span>&#9654;</span> START RADIO
-    </button>
+    <!-- Unobstructed retro kitchen view with rising steam -->
   </main>
 
   <div id="pw">
@@ -895,8 +861,7 @@ const TRK = [
     "a": "OSR Movies",
     "d": "3:56",
     "ds": 236,
-    "yt": "EhLOksRnCU0",
-    "src": "/api/stream?v=EhLOksRnCU0",
+    "src": "audio/EhLOksRnCU0.mp3",
     "cat": "nepali",
     "e": "🏔️"
   },
@@ -905,8 +870,7 @@ const TRK = [
     "a": "Jhuma Limbu | Sujan Chapagain",
     "d": "3:41",
     "ds": 221,
-    "yt": "JqZ7Owwt2Cw",
-    "src": "/api/stream?v=JqZ7Owwt2Cw",
+    "src": "audio/JqZ7Owwt2Cw.mp3",
     "cat": "nepali",
     "e": "🌿"
   },
@@ -915,8 +879,7 @@ const TRK = [
     "a": "Narayan Gopal, Asha Bhosle",
     "d": "6:02",
     "ds": 362,
-    "yt": "pzcBs8XrvyQ",
-    "src": "/api/stream?v=pzcBs8XrvyQ",
+    "src": "audio/pzcBs8XrvyQ.mp3",
     "cat": "nepali",
     "e": "🍃"
   },
@@ -925,8 +888,7 @@ const TRK = [
     "a": "Shreekrishna Shrestha",
     "d": "6:26",
     "ds": 386,
-    "yt": "JF5qMTlYz8M",
-    "src": "/api/stream?v=JF5qMTlYz8M",
+    "src": "audio/JF5qMTlYz8M.mp3",
     "cat": "nepali",
     "e": "🌙"
   },
@@ -935,8 +897,7 @@ const TRK = [
     "a": "Narayan Gopal",
     "d": "6:14",
     "ds": 374,
-    "yt": "LFR4eMQzUr4",
-    "src": "/api/stream?v=LFR4eMQzUr4",
+    "src": "audio/LFR4eMQzUr4.mp3",
     "cat": "nepali",
     "e": "🌺"
   },
@@ -945,8 +906,7 @@ const TRK = [
     "a": "Ghulam Ali",
     "d": "4:53",
     "ds": 293,
-    "yt": "ftEzdVJWdDA",
-    "src": "/api/stream?v=ftEzdVJWdDA",
+    "src": "audio/ftEzdVJWdDA.mp3",
     "cat": "nepali",
     "e": "🎋"
   },
@@ -955,8 +915,7 @@ const TRK = [
     "a": "Udit Narayan | Alok Shree",
     "d": "5:09",
     "ds": 309,
-    "yt": "taeE9_EQGwY",
-    "src": "/api/stream?v=taeE9_EQGwY",
+    "src": "audio/taeE9_EQGwY.mp3",
     "cat": "nepali",
     "e": "🦋"
   },
@@ -965,8 +924,7 @@ const TRK = [
     "a": "Muglan Movie Song",
     "d": "7:54",
     "ds": 474,
-    "yt": "hXk8mDRUcuU",
-    "src": "/api/stream?v=hXk8mDRUcuU",
+    "src": "audio/hXk8mDRUcuU.mp3",
     "cat": "nepali",
     "e": "🌾"
   },
@@ -975,8 +933,7 @@ const TRK = [
     "a": "Bipul Chettri",
     "d": "4:48",
     "ds": 288,
-    "yt": "0bfk90rWV9U",
-    "src": "/api/stream?v=0bfk90rWV9U",
+    "src": "audio/0bfk90rWV9U.mp3",
     "cat": "nepali",
     "e": "🍂"
   },
@@ -985,8 +942,7 @@ const TRK = [
     "a": "The Elements | Tuborg Sessions",
     "d": "5:25",
     "ds": 325,
-    "yt": "H7bzyggFYSE",
-    "src": "/api/stream?v=H7bzyggFYSE",
+    "src": "audio/H7bzyggFYSE.mp3",
     "cat": "nepali",
     "e": "✨"
   },
@@ -995,8 +951,7 @@ const TRK = [
     "a": "Sabin Rai & The Elektrix",
     "d": "5:00",
     "ds": 300,
-    "yt": "3VxA9_qC4As",
-    "src": "/api/stream?v=3VxA9_qC4As",
+    "src": "audio/3VxA9_qC4As.mp3",
     "cat": "nepali",
     "e": "🌼"
   },
@@ -1005,8 +960,7 @@ const TRK = [
     "a": "Mantra Band",
     "d": "7:22",
     "ds": 442,
-    "yt": "kJXexryKqkc",
-    "src": "/api/stream?v=kJXexryKqkc",
+    "src": "audio/kJXexryKqkc.mp3",
     "cat": "nepali",
     "e": "🎐"
   },
@@ -1015,8 +969,7 @@ const TRK = [
     "a": "Samriddhi Rai X Rohit John Chettri",
     "d": "4:56",
     "ds": 296,
-    "yt": "46idHCU5sH0",
-    "src": "/api/stream?v=46idHCU5sH0",
+    "src": "audio/46idHCU5sH0.mp3",
     "cat": "nepali",
     "e": "🌸"
   },
@@ -1025,8 +978,7 @@ const TRK = [
     "a": "Karma Band (OST First Love)",
     "d": "5:24",
     "ds": 324,
-    "yt": "imAXlJ8lbHA",
-    "src": "/api/stream?v=imAXlJ8lbHA",
+    "src": "audio/imAXlJ8lbHA.mp3",
     "cat": "nepali",
     "e": "🌻"
   },
@@ -1035,8 +987,7 @@ const TRK = [
     "a": "Shirish Khadka",
     "d": "4:15",
     "ds": 255,
-    "yt": "BZTueYP5Pro",
-    "src": "/api/stream?v=BZTueYP5Pro",
+    "src": "audio/BZTueYP5Pro.mp3",
     "cat": "nepali",
     "e": "🎻"
   },
@@ -1045,8 +996,7 @@ const TRK = [
     "a": "Mt. 8848",
     "d": "4:27",
     "ds": 267,
-    "yt": "T2zIT7xQwyM",
-    "src": "/api/stream?v=T2zIT7xQwyM",
+    "src": "audio/T2zIT7xQwyM.mp3",
     "cat": "nepali",
     "e": "🎸"
   },
@@ -1055,8 +1005,7 @@ const TRK = [
     "a": "Karma Band",
     "d": "3:38",
     "ds": 218,
-    "yt": "taNFbSuESXA",
-    "src": "/api/stream?v=taNFbSuESXA",
+    "src": "audio/taNFbSuESXA.mp3",
     "cat": "nepali",
     "e": "🥁"
   },
@@ -1065,8 +1014,7 @@ const TRK = [
     "a": "1974 AD",
     "d": "3:55",
     "ds": 235,
-    "yt": "MqFycWPbwmQ",
-    "src": "/api/stream?v=MqFycWPbwmQ",
+    "src": "audio/MqFycWPbwmQ.mp3",
     "cat": "nepali",
     "e": "🍁"
   },
@@ -1075,8 +1023,7 @@ const TRK = [
     "a": "Nepathya",
     "d": "4:14",
     "ds": 254,
-    "yt": "Jy0gLuvTfXk",
-    "src": "/api/stream?v=Jy0gLuvTfXk",
+    "src": "audio/Jy0gLuvTfXk.mp3",
     "cat": "nepali",
     "e": "🌴"
   },
@@ -1085,8 +1032,7 @@ const TRK = [
     "a": "Nepathya",
     "d": "4:28",
     "ds": 268,
-    "yt": "BpeFXed4K6I",
-    "src": "/api/stream?v=BpeFXed4K6I",
+    "src": "audio/BpeFXed4K6I.mp3",
     "cat": "nepali",
     "e": "🌲"
   },
@@ -1095,8 +1041,7 @@ const TRK = [
     "a": "Mantra",
     "d": "6:39",
     "ds": 399,
-    "yt": "3tQZIkWXUXM",
-    "src": "/api/stream?v=3tQZIkWXUXM",
+    "src": "audio/3tQZIkWXUXM.mp3",
     "cat": "nepali",
     "e": "🎋"
   },
@@ -1105,8 +1050,7 @@ const TRK = [
     "a": "Love Aaj Kal | Mohit Chauhan",
     "d": "5:38",
     "ds": 338,
-    "yt": "kPtn26x8TZM",
-    "src": "/api/stream?v=kPtn26x8TZM",
+    "src": "audio/kPtn26x8TZM.mp3",
     "cat": "hindi",
     "e": "🌹"
   },
@@ -1115,8 +1059,7 @@ const TRK = [
     "a": "Life in a Metro | Soham",
     "d": "6:39",
     "ds": 399,
-    "yt": "P7JyrhGnjhg",
-    "src": "/api/stream?v=P7JyrhGnjhg",
+    "src": "audio/P7JyrhGnjhg.mp3",
     "cat": "hindi",
     "e": "🌸"
   },
@@ -1125,8 +1068,7 @@ const TRK = [
     "a": "Murder 3 | Shafqat Amanat Ali",
     "d": "5:48",
     "ds": 348,
-    "yt": "xrSZLa14haA",
-    "src": "/api/stream?v=xrSZLa14haA",
+    "src": "audio/xrSZLa14haA.mp3",
     "cat": "hindi",
     "e": "💛"
   },
@@ -1135,8 +1077,7 @@ const TRK = [
     "a": "Kabhi Alvida Naa Kehna | Shafqat",
     "d": "6:01",
     "ds": 361,
-    "yt": "ru_5PA8cwkE",
-    "src": "/api/stream?v=ru_5PA8cwkE",
+    "src": "audio/ru_5PA8cwkE.mp3",
     "cat": "hindi",
     "e": "💖"
   },
@@ -1145,8 +1086,7 @@ const TRK = [
     "a": "Guru | A.R. Rahman",
     "d": "5:09",
     "ds": 309,
-    "yt": "_mwqXnTEHSc",
-    "src": "/api/stream?v=_mwqXnTEHSc",
+    "src": "audio/_mwqXnTEHSc.mp3",
     "cat": "hindi",
     "e": "🎶"
   },
@@ -1155,8 +1095,7 @@ const TRK = [
     "a": "Love Aaj Kal | Rahat Fateh Ali",
     "d": "5:13",
     "ds": 313,
-    "yt": "IImcBEHuDRI",
-    "src": "/api/stream?v=IImcBEHuDRI",
+    "src": "audio/IImcBEHuDRI.mp3",
     "cat": "hindi",
     "e": "🪷"
   },
@@ -1165,8 +1104,7 @@ const TRK = [
     "a": "Atif Aslam | Alka Yagnik",
     "d": "4:42",
     "ds": 282,
-    "yt": "-kI769Xigik",
-    "src": "/api/stream?v=-kI769Xigik",
+    "src": "audio/-kI769Xigik.mp3",
     "cat": "hindi",
     "e": "🌼"
   },
@@ -1175,8 +1113,7 @@ const TRK = [
     "a": "Jannat | KK",
     "d": "5:08",
     "ds": 308,
-    "yt": "-8C_2BBVWk8",
-    "src": "/api/stream?v=-8C_2BBVWk8",
+    "src": "audio/-8C_2BBVWk8.mp3",
     "cat": "hindi",
     "e": "🎸"
   },
@@ -1185,8 +1122,7 @@ const TRK = [
     "a": "Kites | KK",
     "d": "4:01",
     "ds": 241,
-    "yt": "r-XG86T2jNc",
-    "src": "/api/stream?v=r-XG86T2jNc",
+    "src": "audio/r-XG86T2jNc.mp3",
     "cat": "hindi",
     "e": "🌻"
   },
@@ -1195,8 +1131,7 @@ const TRK = [
     "a": "Armaan Malik",
     "d": "6:46",
     "ds": 406,
-    "yt": "Dp6lbdoprZ0",
-    "src": "/api/stream?v=Dp6lbdoprZ0",
+    "src": "audio/Dp6lbdoprZ0.mp3",
     "cat": "hindi",
     "e": "💫"
   },
@@ -1205,8 +1140,7 @@ const TRK = [
     "a": "Ghajini | Benny Dayal, Shreya",
     "d": "7:02",
     "ds": 422,
-    "yt": "MdhjLM-99lQ",
-    "src": "/api/stream?v=MdhjLM-99lQ",
+    "src": "audio/MdhjLM-99lQ.mp3",
     "cat": "hindi",
     "e": "🎵"
   },
@@ -1215,8 +1149,7 @@ const TRK = [
     "a": "Coke Studio | Rahat Fateh Ali & Momina",
     "d": "6:45",
     "ds": 405,
-    "yt": "kw4tT7SCmaY",
-    "src": "/api/stream?v=kw4tT7SCmaY",
+    "src": "audio/kw4tT7SCmaY.mp3",
     "cat": "hindi",
     "e": "🥀"
   }
@@ -1346,13 +1279,6 @@ audio.addEventListener("timeupdate", () => {
 audio.addEventListener("play", () => setP(true));
 audio.addEventListener("pause", () => setP(false));
 audio.addEventListener("ended", () => next());
-audio.addEventListener("waiting", () => {
-  $("tttl").textContent = "⏳ Loading " + TRK[ci].t + "...";
-});
-audio.addEventListener("playing", () => {
-  $("tttl").textContent = TRK[ci].t;
-  setP(true);
-});
 
 // ── Track Loading & Controls ─────────────────────────────
 function loadTrack(idx, autoplay = false) {
@@ -1383,14 +1309,11 @@ function loadTrack(idx, autoplay = false) {
 function play() {
   initAC();
   if (ac && ac.state === "suspended") ac.resume();
-  
-  const cbtn = $("center-start-btn");
-  if (cbtn) cbtn.classList.add("hid");
 
   audio.play().then(() => {
     setP(true);
   }).catch(err => {
-    console.warn("Audio play prevented or pending:", err);
+    console.warn("Audio play error:", err);
   });
 }
 
@@ -1404,23 +1327,20 @@ function setP(p) {
   $("pbut").innerHTML = p ? "&#9646;&#9646;" : "&#9654;";
   $("pbut").setAttribute("aria-label", p ? "Pause" : "Play");
   $("vart").classList.toggle("sp", p);
-  const cbtn = $("center-start-btn");
-  if (cbtn && p) cbtn.classList.add("hid");
 }
 
 function togglePlayPause() {
   if (ip) {
     pause();
   } else {
-    play();
+    if (!audio.src || audio.src === "" || audio.src.endsWith("/")) {
+      loadTrack(0, true);
+    } else {
+      play();
+    }
   }
 }
 window.togglePlayPause = togglePlayPause;
-
-function startRadioNow() {
-  loadTrack(0, true);
-}
-window.startRadioNow = startRadioNow;
 
 function next() {
   let nextIdx = (ci + 1) % TRK.length;

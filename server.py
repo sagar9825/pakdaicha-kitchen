@@ -1,21 +1,22 @@
-import os
-from flask import Flask, send_from_directory
+import os, sys, http.server, socketserver
 
-app = Flask(__name__, static_folder=".")
+BASE = os.path.dirname(os.path.abspath(__file__))
 
-@app.route("/")
-def index():
-    return send_from_directory(".", "index.html")
+class PakdaichaHandler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=BASE, **kwargs)
+    
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Cache-Control', 'public, max-age=86400')
+        super().end_headers()
 
-# Explicit audio route
-@app.route("/audio/<path:filename>")
-def serve_audio(filename):
-    return send_from_directory("audio", filename)
-
-@app.route("/<path:path>")
-def serve_static(path):
-    return send_from_directory(".", path)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 8080))
+    socketserver.TCPServer.allow_reuse_address = True
+    with socketserver.TCPServer(("0.0.0.0", port), PakdaichaHandler) as httpd:
+        print(f"Pakdaicha Server running at http://0.0.0.0:{port}")
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("Server stopped.")

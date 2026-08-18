@@ -1,0 +1,24 @@
+# ══════════════════════════════════════════════════════
+#  पाक्दैछ Kitchen Radio — HINDI Songs Playlist
+#  Paste Hindi YouTube links below (one per line)
+#  Lines starting with # are ignored
+#  Then run: python download.py
+# ══════════════════════════════════════════════════════
+
+# Examples (remove # to activate):
+
+# ── Paste your Hindi song links below ───────────────
+
+https://www.youtube.com/watch?v=kPtn26x8TZM&list=RDP7JyrhGnjhg&index=5
+https://www.youtube.com/watch?v=P7JyrhGnjhg&list=RDP7JyrhGnjhg&index=1
+https://www.youtube.com/watch?v=xrSZLa14haA&list=RDP7JyrhGnjhg&index=5
+https://www.youtube.com/watch?v=ru_5PA8cwkE&list=RDP7JyrhGnjhg&index=7
+https://www.youtube.com/watch?v=_mwqXnTEHSc&list=RDP7JyrhGnjhg&index=8
+https://www.youtube.com/watch?v=IImcBEHuDRI&list=RDP7JyrhGnjhg&index=9
+https://www.youtube.com/watch?v=-kI769Xigik&list=RDP7JyrhGnjhg&index=17
+https://www.youtube.com/watch?v=-8C_2BBVWk8&list=RDP7JyrhGnjhg&index=36
+https://www.youtube.com/watch?v=r-XG86T2jNc&list=RDP7JyrhGnjhg&index=42
+https://www.youtube.com/watch?v=Dp6lbdoprZ0&list=RDP7JyrhGnjhg&index=47
+https://www.youtube.com/watch?v=MdhjLM-99lQ&list=RDP7JyrhGnjhg&index=48
+
+https://www.youtube.com/watch?v=kw4tT7SCmaY&list=RDkw4tT7SCmaY&start_radio=1

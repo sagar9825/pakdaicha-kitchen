@@ -1,0 +1,35 @@
+# ══════════════════════════════════════════════════════
+#  पाक्दैछ Kitchen Radio — NEPALI Songs Playlist
+#  Paste Nepali YouTube links below (one per line)
+#  Lines starting with # are ignored
+#  Then run: python download.py
+# ══════════════════════════════════════════════════════
+
+# Examples (remove # to activate):
+# https://www.youtube.com/watch?v=XXXXXXX
+# https://youtu.be/XXXXXXX
+
+# ── Paste your Nepali song links below ──────────────
+
+
+https://www.youtube.com/watch?v=EhLOksRnCU0&list=RDEhLOksRnCU0&start_radio=1
+https://www.youtube.com/watch?v=JqZ7Owwt2Cw&list=RDJqZ7Owwt2Cw&start_radio=1
+https://www.youtube.com/watch?v=pzcBs8XrvyQ&list=RDpzcBs8XrvyQ&start_radio=1
+https://www.youtube.com/watch?v=JF5qMTlYz8M&list=RDJF5qMTlYz8M&start_radio=1
+https://www.youtube.com/watch?v=LFR4eMQzUr4&list=RDJF5qMTlYz8M&index=4
+https://www.youtube.com/watch?v=ftEzdVJWdDA&list=PLfJBvoNea3pG2nPyk4yKH93bZ6Y1XfiCm
+https://www.youtube.com/watch?v=taeE9_EQGwY&list=RDtaeE9_EQGwY&start_radio=1
+https://www.youtube.com/watch?v=hXk8mDRUcuU&list=RDhXk8mDRUcuU&start_radio=1
+https://www.youtube.com/watch?v=0bfk90rWV9U&list=RD0bfk90rWV9U&start_radio=1
+https://www.youtube.com/watch?v=H7bzyggFYSE&list=RDH7bzyggFYSE&start_radio=1
+https://www.youtube.com/watch?v=3VxA9_qC4As&list=RD3VxA9_qC4As&start_radio=1
+https://www.youtube.com/watch?v=kJXexryKqkc&list=RDkJXexryKqkc&start_radio=1
+https://www.youtube.com/watch?v=46idHCU5sH0&list=RD46idHCU5sH0&start_radio=1
+https://www.youtube.com/watch?v=imAXlJ8lbHA&list=RDimAXlJ8lbHA&start_radio=1
+https://www.youtube.com/watch?v=BZTueYP5Pro&list=RDBZTueYP5Pro&start_radio=1
+https://www.youtube.com/watch?v=T2zIT7xQwyM&list=RDBZTueYP5Pro&index=2
+https://www.youtube.com/watch?v=taNFbSuESXA&list=RDBZTueYP5Pro&index=8
+https://www.youtube.com/watch?v=MqFycWPbwmQ&list=RDBZTueYP5Pro&index=29
+https://www.youtube.com/watch?v=Jy0gLuvTfXk&list=RDBZTueYP5Pro&index=28
+https://www.youtube.com/watch?v=BpeFXed4K6I&list=RDBZTueYP5Pro&index=40
+https://www.youtube.com/watch?v=3tQZIkWXUXM&list=RDBZTueYP5Pro&index=47

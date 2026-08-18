@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <title>&#2346;&#2366;&#2325;&#2381;&#2342;&#2376;&#2331; | Kitchen Radio</title>
+  <meta name="description" content="Pakdaicha pure audio kitchen radio — nostalgic Indian & Nepali music for cooking vibes."/>
+  <meta name="theme-color" content="#250e02"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    :root {
+      --sa: #f5a623;
+      --sa-glow: rgba(245, 166, 35, 0.45);
+      --cr: #fdf0d0;
+      --tp: #fdf6ee;
+      --tm: rgba(253, 240, 208, 0.75);
+      --bg-glass: rgba(28, 11, 2, 0.88);
+      --border-glass: rgba(255, 210, 130, 0.38);
+      --radius-pill: 9999px;
+      --radius-card: 24px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-top: env(safe-area-inset-top, 0px);
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: #140700;
+      font-family: 'Outfit', sans-serif;
+      color: var(--tp);
+      user-select: none;
+    }
+
+    #bg {
+      position: fixed;
+      inset: 0;
+      background: url('kitchen_bg.jpg') center top/cover no-repeat;
+      z-index: 0;
+      transform: translateZ(0);
+    }
+    #bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(20, 8, 0, 0.35) 0%,
+        rgba(20, 8, 0, 0.12) 25%,
+        rgba(16, 6, 0, 0.55) 65%,
+        rgba(12, 4, 0, 0.94) 100%
+      );
+    }
+
+    /* Ambient cooking steam particles */
+    .steam {
+      position: fixed;
+      bottom: 140px;
+      width: 6px;
+      border-radius: 50%;
+      background: rgba(255, 240, 200, 0.14);
+      filter: blur(4px);
+      animation: sr var(--d, 6s) ease-in infinite var(--dl, 0s);
+      z-index: 2;
+      pointer-events: none;
+    }
+    @keyframes sr {
+      0% { transform: translateY(0) scaleX(1); opacity: 0; height: 8px; }
+      20% { opacity: 0.6; }
+      60% { transform: translateY(-140px) translateX(var(--dx, 12px)) scaleX(1.6); opacity: 0.25; height: 18px; }
+      100% { transform: translateY(-260px) translateX(calc(var(--dx, 12px) * 2)) scaleX(2.2); opacity: 0; height: 24px; }
+    }
+
+    /* App container */
+    #app {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 10;
+      padding-top: var(--safe-top);
+      padding-bottom: var(--safe-bottom);
+      overflow: hidden;
+    }
+
+    /* Header - EXACT CENTER TOP BADGE */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 22px;
+      position: relative;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      z-index: 2;
+    }
+    #clk {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--tp);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.8), 0 0 16px var(--sa-glow);
+      letter-spacing: 0.04em;
+    }
+
+    /* EXACT CENTER TOP COOKING BADGE */
+    .header-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+    #lbadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(42, 16, 3, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-pill);
+      padding: 6px 16px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--tp);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.45), 0 0 16px rgba(245, 166, 35, 0.2);
+      white-space: nowrap;
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--sa);
+      animation: ps 1.8s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes ps {
+      0% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.85); }
+      70% { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(45, 18, 3, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-glass);
+      color: var(--tp);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+    .pill:active {
+      transform: scale(0.96);
+      background: rgba(90, 40, 8, 0.85);
+    }
+
+    /* Clean Center Stage - Completely Clear for Beautiful Background */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 16px 20px;
+      pointer-events: none;
+    }
+
+    /* Player wrap */
+    #pw {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 14px 14px;
+      z-index: 20;
+    }
+    #player {
+      background: var(--bg-glass);
+      backdrop-filter: blur(34px) saturate(190%);
+      -webkit-backdrop-filter: blur(34px) saturate(190%);
+      border: 1.5px solid var(--border-glass);
+      border-radius: 30px;
+      box-shadow: 0 14px 48px rgba(0,0,0,0.8), 0 1px 0 rgba(255,200,100,0.2) inset;
+      width: 100%;
+      max-width: 880px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+    }
+
+    /* Mini vinyl record in player bar */
+    #vw {
+      flex-shrink: 0;
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+    #vart {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,200,100,0.45);
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.6);
+      display: block;
+    }
+    #vart.sp {
+      animation: spin 3.5s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .vctr {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fdf0d0 30%, #888 100%);
+      border: 2px solid rgba(255,255,255,0.7);
+      pointer-events: none;
+    }
+
+    /* Track metadata & seek */
+    #tmeta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+    #tttl {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--tp);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.01em;
+    }
+    #tart {
+      font-size: 0.76rem;
+      color: var(--tm);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .srow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    #seek {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(255, 200, 100, 0.2);
+      outline: none;
+      cursor: pointer;
+    }
+    #seek::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--sa);
+      box-shadow: 0 0 8px var(--sa);
+      cursor: pointer;
+    }
+    #seek::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--sa);
+      border: none;
+      cursor: pointer;
+    }
+    #tdisp {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--tm);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Controls */
+    #ctrl {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .cbut {
+      background: rgba(255, 200, 80, 0.1);
+      border: 1px solid rgba(255, 200, 80, 0.25);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tp);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.15s, transform 0.12s;
+    }
+    .cbut:active {
+      transform: scale(0.92);
+      background: rgba(255, 200, 80, 0.25);
+    }
+    #pbut {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(145deg, #fdf0d0, #f5c878);
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: #351200;
+      flex-shrink: 0;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.45), 0 0 0 3px rgba(245, 166, 35, 0.18);
+      transition: transform 0.12s, box-shadow 0.15s;
+    }
+    #pbut:active {
+      transform: scale(0.94);
+    }
+
+    /* Volume */
+    #vgrp {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    #vico {
+      font-size: 1.05rem;
+      cursor: pointer;
+      color: var(--tm);
+      user-select: none;
+      padding: 4px;
+    }
+    #vslid {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 68px;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(255, 200, 100, 0.2);
+      outline: none;
+      cursor: pointer;
+    }
+    #vslid::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cr);
+      cursor: pointer;
+    }
+
+    #hiss {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 11px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 200, 80, 0.08);
+      border: 1px solid rgba(255, 200, 80, 0.25);
+      color: var(--tm);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Outfit', sans-serif;
+    }
+    #hiss.on {
+      background: rgba(245, 166, 35, 0.25);
+      border-color: rgba(245, 166, 35, 0.65);
+      color: var(--sa);
+      box-shadow: 0 0 10px rgba(245,166,35,0.3);
+    }
+
+    #contact {
+      font-size: 0.68rem;
+      color: rgba(253, 240, 208, 0.4);
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    /* Start Tap Overlay */
+    #tover {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(16, 6, 1, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      padding: 20px;
+      transition: opacity 0.3s ease, visibility 0.3s;
+    }
+    #tover.hid {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .tcard {
+      background: rgba(48, 18, 3, 0.9);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--border-glass);
+      border-radius: 28px;
+      padding: 36px 32px;
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.75), 0 0 30px rgba(245,166,35,0.15);
+      animation: tp 2.4s ease-in-out infinite;
+    }
+    @keyframes tp {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); box-shadow: 0 24px 70px rgba(0,0,0,0.85), 0 0 40px rgba(245,166,35,0.3); }
+    }
+    .tdev {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--sa);
+      display: block;
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(245,166,35,0.5);
+    }
+    .temi {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .ttit {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--tp);
+      margin-bottom: 6px;
+    }
+    .tsub {
+      font-size: 0.82rem;
+      color: var(--tm);
+      line-height: 1.45;
+    }
+    .tbtn-prompt {
+      margin-top: 18px;
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, #f5a623, #c46b00);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 16px rgba(245,166,35,0.4);
+    }
+
+    /* Drawers / Modals */
+    .mover {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(10, 4, 0, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .mover.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mdraw {
+      background: rgba(30, 11, 2, 0.94);
+      backdrop-filter: blur(36px) saturate(190%);
+      -webkit-backdrop-filter: blur(36px) saturate(190%);
+      border: 1px solid var(--border-glass);
+      border-bottom: none;
+      border-radius: 28px 28px 0 0;
+      width: 100%;
+      max-width: 640px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.34s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 0 -12px 64px rgba(0,0,0,0.85);
+      padding-bottom: var(--safe-bottom);
+    }
+    .mover.open .mdraw {
+      transform: translateY(0);
+    }
+    .mhand {
+      width: 40px;
+      height: 4px;
+      background: rgba(255, 200, 100, 0.3);
+      border-radius: 2px;
+      margin: 12px auto 6px;
+      flex-shrink: 0;
+    }
+    .mhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 18px 12px;
+      border-bottom: 1px solid rgba(255, 200, 100, 0.12);
+      flex-shrink: 0;
+    }
+    .mtit {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--tp);
+    }
+    .mclose {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 200, 80, 0.1);
+      border: 1px solid rgba(255, 200, 80, 0.25);
+      color: var(--tm);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mclose:active {
+      background: rgba(255, 200, 80, 0.3);
+    }
+    .mbody {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 12px 16px 24px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(245, 166, 35, 0.3) transparent;
+    }
+
+    /* Song item */
+    .sitem {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: 1px solid transparent;
+      margin-bottom: 4px;
+    }
+    .sitem:active {
+      background: rgba(255, 200, 80, 0.12);
+    }
+    .sitem.cur {
+      background: rgba(245, 166, 35, 0.18);
+      border-color: rgba(245, 166, 35, 0.45);
+    }
+    .snum {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--tm);
+      width: 22px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .sthumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #7c3a00, #321200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 200, 80, 0.25);
+    }
+    .sinf {
+      flex: 1;
+      min-width: 0;
+    }
+    .stit {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--tp);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sart {
+      font-size: 0.74rem;
+      color: var(--tm);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sdur {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--tm);
+      flex-shrink: 0;
+    }
+
+    /* Playlist cards */
+    .pcard {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 200, 80, 0.06);
+      border: 1px solid rgba(255, 200, 80, 0.18);
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .pcard:active {
+      transform: scale(0.98);
+      background: rgba(255, 200, 80, 0.14);
+    }
+    .pcov {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 200, 80, 0.25);
+    }
+    .pinf h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--tp);
+      margin-bottom: 3px;
+    }
+    .pinf p {
+      font-size: 0.76rem;
+      color: var(--tm);
+      line-height: 1.35;
+    }
+    .pcount {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--sa);
+      background: rgba(245, 166, 35, 0.15);
+      border: 1px solid rgba(245, 166, 35, 0.35);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* PWA steps */
+    .pstep {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 200, 80, 0.1);
+    }
+    .pstep:last-child {
+      border-bottom: none;
+    }
+    .pnum {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sa), #b85e00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .ptxt h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--tp);
+      margin-bottom: 2px;
+    }
+    .ptxt p {
+      font-size: 0.76rem;
+      color: var(--tm);
+      line-height: 1.4;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 680px) {
+      header {
+        padding: 12px 14px;
+      }
+      #clk {
+        font-size: 0.86rem;
+      }
+      #lbadge {
+        font-size: 0.74rem;
+        padding: 4px 10px;
+        gap: 5px;
+      }
+      .header-right .pill {
+        padding: 5px 9px;
+        font-size: 0.74rem;
+        gap: 3px;
+      }
+      #player {
+        padding: 8px 12px;
+        border-radius: 20px;
+        gap: 10px;
+      }
+      #vw, #vart {
+        width: 48px;
+        height: 48px;
+      }
+      #tttl {
+        font-size: 0.84rem;
+      }
+      #tart {
+        font-size: 0.7rem;
+      }
+      #pbut {
+        width: 44px;
+        height: 44px;
+        font-size: 1.15rem;
+      }
+      .cbut {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+      }
+      #vgrp, #hiss {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div class="steam" style="left:34%;--d:5.5s;--dl:0s;--dx:12px"></div>
+<div class="steam" style="left:42%;--d:6.5s;--dl:1.2s;--dx:-10px"></div>
+<div class="steam" style="left:50%;--d:5s;--dl:.6s;--dx:8px"></div>
+<div class="steam" style="left:58%;--d:7s;--dl:2s;--dx:-12px"></div>
+
+<!-- Start Tap Overlay -->
+<div id="tover" role="button" tabindex="0" onclick="unlock()" aria-label="Tap to start cooking radio">
+  <div class="tcard" onclick="unlock()">
+    <span class="tdev">&#x092A;&#x093E;&#x0915;&#x094D;&#x0926;&#x0948;&#x091B;</span>
+    <span class="temi">🍳</span>
+    <p class="ttit">Tap to start cooking radio</p>
+    <p class="tsub">&#2346;&#2325;&#2366;&#2313;&#2305;&#2342;&#2376; &#2327;&#2352;&#2381;&#2342;&#2366; &#2360;&#2369;&#2344;&#2381;&#2344;&#2369;&#2360;&#2381;&#8230;<br/>Click anywhere to begin 🌶️</p>
+    <div class="tbtn-prompt" onclick="unlock()">▶ Start Radio</div>
+  </div>
+</div>
+
+<!-- Songs Queue Drawer -->
+<div class="mover" id="mo-songs" role="dialog" aria-modal="true">
+  <div class="mdraw">
+    <div class="mhand"></div>
+    <div class="mhead">
+      <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+        <button id="songs-back" onclick="goBackToPlaylists()" aria-label="Back to playlists" style="display:none;background:rgba(255,200,80,.12);border:1px solid rgba(255,200,80,.25);color:var(--tm);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.85rem;flex-shrink:0;align-items:center;justify-content:center">&#8592;</button>
+        <div>
+          <span class="mtit" id="songs-heading">🎵 All Songs</span>
+          <div id="songs-sub" style="font-size:.7rem;color:var(--tm);margin-top:1px"></div>
+        </div>
+      </div>
+      <button class="mclose" onclick="cm('songs')" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="mbody" id="songlist"></div>
+  </div>
+</div>
+
+<!-- Playlists Drawer -->
+<div class="mover" id="mo-playlists" role="dialog" aria-modal="true">
+  <div class="mdraw">
+    <div class="mhand"></div>
+    <div class="mhead">
+      <span class="mtit" id="pl-heading">📻 Kitchen Playlists</span>
+      <button class="mclose" onclick="cm('playlists')" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="mbody">
+      <div id="pl-cards"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PWA Install Modal -->
+<div class="mover" id="mo-install" role="dialog" aria-modal="true">
+  <div class="mdraw">
+    <div class="mhand"></div>
+    <div class="mhead">
+      <span class="mtit">📲 Install on Mobile</span>
+      <button class="mclose" onclick="cm('install')" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="mbody">
+      <p style="font-size:.82rem;color:var(--tm);margin-bottom:16px">Add पाक्दैछ to your home screen — play music easily while you cook!</p>
+      <div class="pstep">
+        <div class="pnum">1</div>
+        <div class="ptxt">
+          <h4>Open in Mobile Browser</h4>
+          <p>Use <strong>Chrome</strong> on Android or <strong>Safari</strong> on iPhone/iPad.</p>
+        </div>
+      </div>
+      <div class="pstep">
+        <div class="pnum">2</div>
+        <div class="ptxt">
+          <h4>Tap Share / Menu</h4>
+          <p>iPhone: tap <strong>&#9633;&#8593; Share</strong> at the bottom. Android: tap <strong>&#8942; menu</strong>.</p>
+        </div>
+      </div>
+      <div class="pstep">
+        <div class="pnum">3</div>
+        <div class="ptxt">
+          <h4>Tap "Add to Home Screen"</h4>
+          <p>Scroll down and confirm to install.</p>
+        </div>
+      </div>
+      <button id="pnbtn" onclick="trigPWA()" style="display:none;width:100%;margin-top:16px;padding:12px;border-radius:var(--radius-pill);background:linear-gradient(135deg,var(--sa),#b85e00);border:none;color:#fff;font-weight:800;font-size:.88rem;cursor:pointer">&#9889; Install Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main UI App -->
+<div id="app">
+  <header>
+    <!-- Left: Clock -->
+    <div class="header-left">
+      <div id="clk">3:39 PM</div>
+    </div>
+
+    <!-- Center Top: Cooking Listener Badge -->
+    <div class="header-center">
+      <div id="lbadge"><div class="dot"></div><span id="lcnt">148</span>&nbsp;cooking</div>
+    </div>
+
+    <!-- Right: Navigation Pills -->
+    <nav class="header-right">
+      <button class="pill" onclick="om('playlists')">📻 Playlists</button>
+      <button class="pill" onclick="om('songs')">🎵 Songs</button>
+      <button class="pill" onclick="om('install')">📲 Install</button>
+    </nav>
+  </header>
+
+  <!-- Clean, Spacious Center Background for Retro Kitchen View -->
+  <main id="main">
+    <!-- Clean, unobstructed kitchen scene with rising steam particles -->
+  </main>
+
+  <div id="pw">
+    <div id="player" role="region" aria-label="Music Player Controls">
+      <!-- Mini Vinyl Art -->
+      <div id="vw" aria-hidden="true">
+        <img id="vart" src="" alt="Album art"/>
+        <div class="vctr"></div>
+      </div>
+
+      <div id="tmeta">
+        <div id="tttl">Phool Pati Bhakera</div>
+        <div id="tart">OSR Movies</div>
+        <div class="srow">
+          <input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek track position"/>
+          <span id="tdisp">0:00 / 0:00</span>
+        </div>
+      </div>
+      <div id="ctrl">
+        <button class="cbut" id="prevb" aria-label="Previous Track">&#9198;</button>
+        <button id="pbut" aria-label="Play">&#9654;</button>
+        <button class="cbut" id="nextb" aria-label="Next Track">&#9197;</button>
+      </div>
+      <div id="vgrp">
+        <span id="vico" role="button" tabindex="0" title="Mute/Unmute">&#128266;</span>
+        <input type="range" id="vslid" min="0" max="1" step="0.01" value="0.85" aria-label="Volume"/>
+      </div>
+      <button id="hiss" aria-label="Toggle vintage vinyl hiss">&#128251; Hiss</button>
+    </div>
+    <div id="contact">contact: sagardhungana778@gmail.com</div>
+  </div>
+</div>
+
+<script>
+// ── Track Database ───────────────────────────────────────
+const TRK = [
+  {
+    "t": "Phool Pati Bhakera",
+    "a": "OSR Movies",
+    "d": "3:56",
+    "ds": 236,
+    "yt": "EhLOksRnCU0",
+    "src": "/api/stream?v=EhLOksRnCU0",
+    "cat": "nepali",
+    "e": "🏔️"
+  },
+  {
+    "t": "Kafle - Unko Sweater",
+    "a": "Jhuma Limbu | Sujan Chapagain",
+    "d": "3:41",
+    "ds": 221,
+    "yt": "JqZ7Owwt2Cw",
+    "src": "/api/stream?v=JqZ7Owwt2Cw",
+    "cat": "nepali",
+    "e": "🌿"
+  },
+  {
+    "t": "Mohani Lagla Hai",
+    "a": "Narayan Gopal, Asha Bhosle",
+    "d": "6:02",
+    "ds": 362,
+    "yt": "pzcBs8XrvyQ",
+    "src": "/api/stream?v=pzcBs8XrvyQ",
+    "cat": "nepali",
+    "e": "🍃"
+  },
+  {
+    "t": "Bagaichama Najau Timi",
+    "a": "Shreekrishna Shrestha",
+    "d": "6:26",
+    "ds": 386,
+    "yt": "JF5qMTlYz8M",
+    "src": "/api/stream?v=JF5qMTlYz8M",
+    "cat": "nepali",
+    "e": "🌙"
+  },
+  {
+    "t": "Kehi Mitho Baat Gara",
+    "a": "Narayan Gopal",
+    "d": "6:14",
+    "ds": 374,
+    "yt": "LFR4eMQzUr4",
+    "src": "/api/stream?v=LFR4eMQzUr4",
+    "cat": "nepali",
+    "e": "🌺"
+  },
+  {
+    "t": "Gajalu Ti Thula Thula Aankha",
+    "a": "Ghulam Ali",
+    "d": "4:53",
+    "ds": 293,
+    "yt": "ftEzdVJWdDA",
+    "src": "/api/stream?v=ftEzdVJWdDA",
+    "cat": "nepali",
+    "e": "🎋"
+  },
+  {
+    "t": "Kahile Timro Pachhauri Ma",
+    "a": "Udit Narayan | Alok Shree",
+    "d": "5:09",
+    "ds": 309,
+    "yt": "taeE9_EQGwY",
+    "src": "/api/stream?v=taeE9_EQGwY",
+    "cat": "nepali",
+    "e": "🦋"
+  },
+  {
+    "t": "Makhamali Pachheuri Sanu",
+    "a": "Muglan Movie Song",
+    "d": "7:54",
+    "ds": 474,
+    "yt": "hXk8mDRUcuU",
+    "src": "/api/stream?v=hXk8mDRUcuU",
+    "cat": "nepali",
+    "e": "🌾"
+  },
+  {
+    "t": "Syndicate",
+    "a": "Bipul Chettri",
+    "d": "4:48",
+    "ds": 288,
+    "yt": "0bfk90rWV9U",
+    "src": "/api/stream?v=0bfk90rWV9U",
+    "cat": "nepali",
+    "e": "🍂"
+  },
+  {
+    "t": "Birsiney Hau Ki",
+    "a": "The Elements | Tuborg Sessions",
+    "d": "5:25",
+    "ds": 325,
+    "yt": "H7bzyggFYSE",
+    "src": "/api/stream?v=H7bzyggFYSE",
+    "cat": "nepali",
+    "e": "✨"
+  },
+  {
+    "t": "Guras Ko Fed Muni",
+    "a": "Sabin Rai & The Elektrix",
+    "d": "5:00",
+    "ds": 300,
+    "yt": "3VxA9_qC4As",
+    "src": "/api/stream?v=3VxA9_qC4As",
+    "cat": "nepali",
+    "e": "🌼"
+  },
+  {
+    "t": "Sadhai Sadhai (20th Anniv)",
+    "a": "Mantra Band",
+    "d": "7:22",
+    "ds": 442,
+    "yt": "kJXexryKqkc",
+    "src": "/api/stream?v=kJXexryKqkc",
+    "cat": "nepali",
+    "e": "🎐"
+  },
+  {
+    "t": "Prayas",
+    "a": "Samriddhi Rai X Rohit John Chettri",
+    "d": "4:56",
+    "ds": 296,
+    "yt": "46idHCU5sH0",
+    "src": "/api/stream?v=46idHCU5sH0",
+    "cat": "nepali",
+    "e": "🌸"
+  },
+  {
+    "t": "Ko Hau Timi",
+    "a": "Karma Band (OST First Love)",
+    "d": "5:24",
+    "ds": 324,
+    "yt": "imAXlJ8lbHA",
+    "src": "/api/stream?v=imAXlJ8lbHA",
+    "cat": "nepali",
+    "e": "🌻"
+  },
+  {
+    "t": "Chihanki Pari",
+    "a": "Shirish Khadka",
+    "d": "4:15",
+    "ds": 255,
+    "yt": "BZTueYP5Pro",
+    "src": "/api/stream?v=BZTueYP5Pro",
+    "cat": "nepali",
+    "e": "🎻"
+  },
+  {
+    "t": "Maski Maski",
+    "a": "Mt. 8848",
+    "d": "4:27",
+    "ds": 267,
+    "yt": "T2zIT7xQwyM",
+    "src": "/api/stream?v=T2zIT7xQwyM",
+    "cat": "nepali",
+    "e": "🎸"
+  },
+  {
+    "t": "Kaha Hola Ghar Bara",
+    "a": "Karma Band",
+    "d": "3:38",
+    "ds": 218,
+    "yt": "taNFbSuESXA",
+    "src": "/api/stream?v=taNFbSuESXA",
+    "cat": "nepali",
+    "e": "🥁"
+  },
+  {
+    "t": "Parelima",
+    "a": "1974 AD",
+    "d": "3:55",
+    "ds": 235,
+    "yt": "MqFycWPbwmQ",
+    "src": "/api/stream?v=MqFycWPbwmQ",
+    "cat": "nepali",
+    "e": "🍁"
+  },
+  {
+    "t": "Bhedako Oon Jasto",
+    "a": "Nepathya",
+    "d": "4:14",
+    "ds": 254,
+    "yt": "Jy0gLuvTfXk",
+    "src": "/api/stream?v=Jy0gLuvTfXk",
+    "cat": "nepali",
+    "e": "🌴"
+  },
+  {
+    "t": "Resham",
+    "a": "Nepathya",
+    "d": "4:28",
+    "ds": 268,
+    "yt": "BpeFXed4K6I",
+    "src": "/api/stream?v=BpeFXed4K6I",
+    "cat": "nepali",
+    "e": "🌲"
+  },
+  {
+    "t": "Sadhai Sadhai Mantra",
+    "a": "Mantra",
+    "d": "6:39",
+    "ds": 399,
+    "yt": "3tQZIkWXUXM",
+    "src": "/api/stream?v=3tQZIkWXUXM",
+    "cat": "nepali",
+    "e": "🎋"
+  },
+  {
+    "t": "Dooriyan",
+    "a": "Love Aaj Kal | Mohit Chauhan",
+    "d": "5:38",
+    "ds": 338,
+    "yt": "kPtn26x8TZM",
+    "src": "/api/stream?v=kPtn26x8TZM",
+    "cat": "hindi",
+    "e": "🌹"
+  },
+  {
+    "t": "In Dino",
+    "a": "Life in a Metro | Soham",
+    "d": "6:39",
+    "ds": 399,
+    "yt": "P7JyrhGnjhg",
+    "src": "/api/stream?v=P7JyrhGnjhg",
+    "cat": "hindi",
+    "e": "🌸"
+  },
+  {
+    "t": "Teri Jhuki Nazar",
+    "a": "Murder 3 | Shafqat Amanat Ali",
+    "d": "5:48",
+    "ds": 348,
+    "yt": "xrSZLa14haA",
+    "src": "/api/stream?v=xrSZLa14haA",
+    "cat": "hindi",
+    "e": "💛"
+  },
+  {
+    "t": "Mitwa",
+    "a": "Kabhi Alvida Naa Kehna | Shafqat",
+    "d": "6:01",
+    "ds": 361,
+    "yt": "ru_5PA8cwkE",
+    "src": "/api/stream?v=ru_5PA8cwkE",
+    "cat": "hindi",
+    "e": "💖"
+  },
+  {
+    "t": "Tere Bina",
+    "a": "Guru | A.R. Rahman",
+    "d": "5:09",
+    "ds": 309,
+    "yt": "_mwqXnTEHSc",
+    "src": "/api/stream?v=_mwqXnTEHSc",
+    "cat": "hindi",
+    "e": "🎶"
+  },
+  {
+    "t": "Aaj Din Chadheya",
+    "a": "Love Aaj Kal | Rahat Fateh Ali",
+    "d": "5:13",
+    "ds": 313,
+    "yt": "IImcBEHuDRI",
+    "src": "/api/stream?v=IImcBEHuDRI",
+    "cat": "hindi",
+    "e": "🪷"
+  },
+  {
+    "t": "Bakhuda Tumhi Ho",
+    "a": "Atif Aslam | Alka Yagnik",
+    "d": "4:42",
+    "ds": 282,
+    "yt": "-kI769Xigik",
+    "src": "/api/stream?v=-kI769Xigik",
+    "cat": "hindi",
+    "e": "🌼"
+  },
+  {
+    "t": "Zara Sa",
+    "a": "Jannat | KK",
+    "d": "5:08",
+    "ds": 308,
+    "yt": "-8C_2BBVWk8",
+    "src": "/api/stream?v=-8C_2BBVWk8",
+    "cat": "hindi",
+    "e": "🎸"
+  },
+  {
+    "t": "Zindagi Do Pal Ki",
+    "a": "Kites | KK",
+    "d": "4:01",
+    "ds": 241,
+    "yt": "r-XG86T2jNc",
+    "src": "/api/stream?v=r-XG86T2jNc",
+    "cat": "hindi",
+    "e": "🌻"
+  },
+  {
+    "t": "Main Rahoon Ya Na Rahoon",
+    "a": "Armaan Malik",
+    "d": "6:46",
+    "ds": 406,
+    "yt": "Dp6lbdoprZ0",
+    "src": "/api/stream?v=Dp6lbdoprZ0",
+    "cat": "hindi",
+    "e": "💫"
+  },
+  {
+    "t": "Kaise Mujhe Tum Mil Gayi",
+    "a": "Ghajini | Benny Dayal, Shreya",
+    "d": "7:02",
+    "ds": 422,
+    "yt": "MdhjLM-99lQ",
+    "src": "/api/stream?v=MdhjLM-99lQ",
+    "cat": "hindi",
+    "e": "🎵"
+  },
+  {
+    "t": "Afreen Afreen",
+    "a": "Coke Studio | Rahat Fateh Ali & Momina",
+    "d": "6:45",
+    "ds": 405,
+    "yt": "kw4tT7SCmaY",
+    "src": "/api/stream?v=kw4tT7SCmaY",
+    "cat": "hindi",
+    "e": "🥀"
+  }
+];
+
+// ── State Variables ──────────────────────────────────────
+let ci = 0;
+let ip = false;
+let mu = false;
+let ho = false;
+let ar = false;
+let dp = null;
+let activeCat = null;
+let ac = null, hn = null, hg = null;
+
+// Pure HTML5 Audio Object connecting to YT-Audio-API
+const audio = new Audio();
+audio.preload = "auto";
+audio.volume = 0.85;
+
+function $(id) { return document.getElementById(id); }
+
+function fmt(s) {
+  if (!isFinite(s) || isNaN(s)) return "0:00";
+  s = Math.floor(s);
+  return Math.floor(s / 60) + ":" + Math.floor(s % 60).toString().padStart(2, "0");
+}
+
+// ── Audio Context & Vintage Hiss Generator ────────────────
+function initAC() {
+  try {
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    console.warn("AudioContext init error:", e);
+  }
+}
+
+function buildHiss() {
+  try {
+    if (!ac) return;
+    if (hn) { try { hn.stop(); } catch (e) {} hn.disconnect(); hn = null; }
+    const buf = ac.createBuffer(1, ac.sampleRate * 4, ac.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) {
+      d[i] = (Math.random() * 2 - 1) * 0.025;
+      if (Math.random() < 0.0006) d[i] += (Math.random() - 0.5) * 0.6;
+    }
+    hn = ac.createBufferSource();
+    hn.buffer = buf;
+    hn.loop = true;
+    const f = ac.createBiquadFilter();
+    f.type = "bandpass";
+    f.frequency.value = 2600;
+    f.Q.value = 0.55;
+    hg = ac.createGain();
+    hg.gain.value = 0;
+    hn.connect(f);
+    f.connect(hg);
+    hg.connect(ac.destination);
+    hn.start();
+  } catch (e) {
+    console.warn("Hiss build error:", e);
+  }
+}
+
+function toggleHiss() {
+  initAC();
+  if (ac && ac.state === "suspended") ac.resume();
+  if (!hn) buildHiss();
+  ho = !ho;
+  if (hg && ac) hg.gain.setTargetAtTime(ho ? 0.55 : 0, ac.currentTime, 0.12);
+  $("hiss").classList.toggle("on", ho);
+}
+
+// ── Vinyl Canvas Artwork Generator ────────────────────────
+function makeArt(e) {
+  const cv = document.createElement("canvas");
+  cv.width = cv.height = 128;
+  const x = cv.getContext("2d");
+  const g = x.createRadialGradient(64, 64, 6, 64, 64, 64);
+  g.addColorStop(0, "#1a0900");
+  g.addColorStop(0.28, "#2e1200");
+  g.addColorStop(0.65, "#1a0900");
+  g.addColorStop(1, "#040100");
+  x.fillStyle = g;
+  x.beginPath();
+  x.arc(64, 64, 64, 0, Math.PI * 2);
+  x.fill();
+
+  for (let r = 18; r < 62; r += 3.2) {
+    x.beginPath();
+    x.arc(64, 64, r, 0, Math.PI * 2);
+    x.strokeStyle = "rgba(255,180,60," + (0.03 + Math.random() * 0.02) + ")";
+    x.lineWidth = 0.5;
+    x.stroke();
+  }
+
+  const lg = x.createRadialGradient(62, 60, 2, 64, 64, 22);
+  lg.addColorStop(0, "#f5a623");
+  lg.addColorStop(0.5, "#c46b00");
+  lg.addColorStop(1, "#7a3a00");
+  x.beginPath();
+  x.arc(64, 64, 22, 0, Math.PI * 2);
+  x.fillStyle = lg;
+  x.fill();
+
+  x.font = "18px serif";
+  x.textAlign = "center";
+  x.textBaseline = "middle";
+  x.fillText(e, 64, 65);
+
+  x.beginPath();
+  x.arc(64, 64, 4, 0, Math.PI * 2);
+  x.fillStyle = "#888";
+  x.fill();
+  return cv.toDataURL();
+}
+
+// ── HTML5 Audio Events ───────────────────────────────────
+audio.addEventListener("timeupdate", () => {
+  if (!audio.duration || isNaN(audio.duration)) return;
+  const p = (audio.currentTime / audio.duration) * 100;
+  $("seek").value = p;
+  sf(p);
+  $("tdisp").textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+});
+
+audio.addEventListener("play", () => setP(true));
+audio.addEventListener("pause", () => setP(false));
+audio.addEventListener("ended", () => next());
+audio.addEventListener("error", (e) => {
+  console.warn("Audio stream error:", e);
+  setP(false);
+});
+
+// ── Track Loading & Controls ─────────────────────────────
+function loadTrack(idx, autoplay = false) {
+  if (idx < 0 || idx >= TRK.length) return;
+  const t = TRK[idx];
+  ci = idx;
+
+  $("tttl").textContent = t.t;
+  $("tart").textContent = t.a;
+  $("tdisp").textContent = "0:00 / " + t.d;
+  $("seek").value = 0;
+  sf(0);
+
+  const img = $("vart");
+  if (img) { img.src = makeArt(t.e); img.alt = t.t; }
+
+  audio.src = t.src;
+  audio.load();
+
+  if (autoplay) {
+    play();
+  } else {
+    setP(false);
+  }
+  renderSongs(activeCat);
+}
+
+function play() {
+  initAC();
+  if (ac && ac.state === "suspended") ac.resume();
+  audio.play().then(() => {
+    setP(true);
+  }).catch(err => {
+    console.warn("Audio play prevented or pending:", err);
+  });
+}
+
+function pause() {
+  audio.pause();
+  setP(false);
+}
+
+function setP(p) {
+  ip = p;
+  $("pbut").innerHTML = p ? "&#9646;&#9646;" : "&#9654;";
+  $("pbut").setAttribute("aria-label", p ? "Pause" : "Play");
+  $("vart").classList.toggle("sp", p);
+}
+
+function next() {
+  let nextIdx = (ci + 1) % TRK.length;
+  if (activeCat) {
+    const catIndices = TRK.map((t, i) => (t.cat === activeCat ? i : -1)).filter(i => i !== -1);
+    const currPos = catIndices.indexOf(ci);
+    if (currPos !== -1) {
+      nextIdx = catIndices[(currPos + 1) % catIndices.length];
+    }
+  }
+  loadTrack(nextIdx, true);
+}
+
+function prev() {
+  let prevIdx = (ci - 1 + TRK.length) % TRK.length;
+  if (activeCat) {
+    const catIndices = TRK.map((t, i) => (t.cat === activeCat ? i : -1)).filter(i => i !== -1);
+    const currPos = catIndices.indexOf(ci);
+    if (currPos !== -1) {
+      prevIdx = catIndices[(currPos - 1 + catIndices.length) % catIndices.length];
+    }
+  }
+  loadTrack(prevIdx, true);
+}
+
+// ── Event Handlers ───────────────────────────────────────
+$("pbut").addEventListener("click", () => {
+  if (!ar) { unlock(); return; }
+  if (ip) pause(); else play();
+});
+$("prevb").addEventListener("click", prev);
+$("nextb").addEventListener("click", next);
+
+// Seek slider
+$("seek").addEventListener("input", e => {
+  const p = parseFloat(e.target.value);
+  sf(p);
+  if (audio.duration && !isNaN(audio.duration)) {
+    audio.currentTime = (p / 100) * audio.duration;
+  }
+});
+
+// Volume slider
+$("vslid").addEventListener("input", e => {
+  const v = parseFloat(e.target.value);
+  vf(v);
+  audio.volume = v;
+  $("vico").textContent = v === 0 ? "🔇" : (v < 0.4 ? "🔉" : "🔊");
+});
+
+// Mute toggle
+$("vico").addEventListener("click", () => {
+  mu = !mu;
+  const s = $("vslid");
+  audio.muted = mu;
+  if (mu) {
+    s.value = 0; vf(0); $("vico").textContent = "🔇";
+  } else {
+    s.value = audio.volume || 0.85; vf(audio.volume || 0.85); $("vico").textContent = "🔊";
+  }
+});
+
+$("hiss").addEventListener("click", toggleHiss);
+
+function sf(p) { $("seek").style.background = "linear-gradient(to right,#f5a623 " + p + "%,rgba(255,200,100,.2) " + p + "%)"; }
+function vf(v) { $("vslid").style.background = "linear-gradient(to right,#fdf0d0 " + (v * 100) + "%,rgba(255,200,100,.2) " + (v * 100) + "%)"; }
+
+// Unlock overlay on first tap
+function unlock() {
+  const overlay = $("tover") || document.getElementById("tover");
+  if (overlay) {
+    overlay.classList.add("hid");
+    overlay.style.display = "none";
+  }
+  ar = true;
+  try {
+    initAC();
+    if (ac && ac.state === "suspended") ac.resume();
+    buildHiss();
+  } catch (err) {
+    console.warn("Audio unlock warning:", err);
+  }
+  loadTrack(0, true);
+}
+window.unlock = unlock;
+$("tover").addEventListener("click", unlock);
+$("tover").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") unlock(); });
+
+// Clock update
+function clk() {
+  const n = new Date();
+  let h = n.getHours(), m = n.getMinutes().toString().padStart(2, "0");
+  const ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  $("clk").textContent = h + ":" + m + " " + ap;
+}
+clk(); setInterval(clk, 1000);
+
+// Fluctuate listener count
+let lb = 148;
+setInterval(() => {
+  lb = Math.max(110, Math.min(280, lb + Math.floor(Math.random() * 14) - 6));
+  $("lcnt").textContent = lb;
+}, 3800);
+
+// ── Modals & Drawer Navigation ───────────────────────────
+function om(n) {
+  if (n === "songs") {
+    if (!activeCat) {
+      $("songs-back").style.display = "none";
+      $("songs-heading").textContent = "🎵 All Songs";
+      $("songs-sub").textContent = "";
+      renderSongs();
+    }
+  }
+  if (n === "playlists") renderPlaylists();
+  $("mo-" + n).classList.add("open");
+}
+
+function cm(n) {
+  if (n === "songs") activeCat = null;
+  $("mo-" + n).classList.remove("open");
+}
+
+document.querySelectorAll(".mover").forEach(o => {
+  o.addEventListener("click", e => {
+    if (e.target === o) {
+      const id = o.id.replace("mo-", "");
+      cm(id);
+    }
+  });
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".mover.open").forEach(o => {
+      const id = o.id.replace("mo-", "");
+      cm(id);
+    });
+  }
+});
+
+// Category definitions
+const CATS = {
+  nepali: {
+    label: "Nepali Songs",
+    sub: "Mountain folk & modern Nepali vibes",
+    emoji: "🏔️",
+    color: "linear-gradient(135deg,#1a4a2e,#0a2016)",
+    tag: "nepali"
+  },
+  hindi: {
+    label: "Hindi Songs",
+    sub: "Old Bollywood classics & golden hits",
+    emoji: "🌹",
+    color: "linear-gradient(135deg,#8b2008,#3a0a0a)",
+    tag: "hindi"
+  }
+};
+
+function renderSongs(filter) {
+  const list = filter
+    ? TRK.map((t, i) => ({ ...t, _i: i })).filter(t => t.cat === filter)
+    : TRK.map((t, i) => ({ ...t, _i: i }));
+
+  if (!list.length) {
+    $("songlist").innerHTML = "<p style='color:var(--tm);font-size:.85rem;padding:24px 0;text-align:center'>No songs found in this category.</p>";
+    return;
+  }
+
+  $("songlist").innerHTML = list.map((t, n) => {
+    const isCur = t._i === ci ? " cur" : "";
+    return "<div class='sitem" + isCur + "' onclick='sel(" + t._i + ")' role='button' tabindex='0'>" +
+      "<span class='snum'>" + (n + 1) + "</span>" +
+      "<div class='sthumb'>" + t.e + "</div>" +
+      "<div class='sinf'><div class='stit'>" + t.t + "</div><div class='sart'>" + t.a + "</div></div>" +
+      "<span class='sdur'>" + t.d + "</span></div>";
+  }).join("");
+}
+
+function sel(idx) {
+  loadTrack(idx, true);
+  cm("songs");
+  cm("playlists");
+}
+
+function openPlaylistCat(tag) {
+  activeCat = tag;
+  const cat = CATS[tag];
+  $("songs-back").style.display = "flex";
+  $("songs-heading").innerHTML = cat.emoji + " " + cat.label;
+  $("songs-sub").textContent = cat.sub;
+  cm("playlists");
+  om("songs");
+  renderSongs(tag);
+}
+
+function goBackToPlaylists() {
+  activeCat = null;
+  cm("songs");
+  om("playlists");
+  renderPlaylists();
+}
+
+function renderPlaylists() {
+  $("pl-heading").textContent = "📻 Kitchen Playlists";
+  $("pl-cards").innerHTML = Object.entries(CATS).map(([tag, cat]) => {
+    const count = TRK.filter(t => t.cat === tag).length;
+    return "<div class='pcard' role='button' tabindex='0' onclick='openPlaylistCat(\"" + tag + "\")'>" +
+      "<div class='pcov' style='background:" + cat.color + "'>" + cat.emoji + "</div>" +
+      "<div class='pinf'><h4>" + cat.label + "</h4>" +
+      "<p>" + cat.sub + "</p>" +
+      "<span class='pcount'>" + count + " song" + (count !== 1 ? "s" : "") + "</span>" +
+      "</div></div>";
+  }).join("");
+}
+
+// ── PWA Install Prompt ────────────────────────────────────
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  dp = e;
+  $("pnbtn").style.display = "block";
+});
+function trigPWA() {
+  if (dp) {
+    dp.prompt();
+    dp.userChoice.then(() => { dp = null; });
+  }
+}
+
+// ── Application Bootstrapping ─────────────────────────────
+(function init() {
+  try {
+    $("tttl").textContent = TRK[0].t;
+    $("tart").textContent = TRK[0].a;
+    $("tdisp").textContent = "0:00 / " + TRK[0].d;
+    const img = $("vart");
+    if (img) { img.src = makeArt(TRK[0].e); img.alt = TRK[0].t; }
+    audio.src = TRK[0].src;
+    sf(0);
+    vf(0.85);
+    renderSongs();
+    renderPlaylists();
+  } catch (err) {
+    console.warn("Init warning:", err);
+  }
+})();
+</script>
+</body>
+</html>

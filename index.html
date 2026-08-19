@@ -232,7 +232,7 @@
       background: rgba(90, 40, 8, 0.85);
     }
 
-    /* Floating External Links */
+    /* Floating External Links (Only YouTube Music) */
     .stream-dock {
       position: absolute;
       top: 68px;
@@ -267,6 +267,11 @@
     .stream-btn:hover {
       transform: scale(1.1);
       border-color: rgba(255, 210, 130, 0.7);
+    }
+
+    .stream-btn.ytmusic:hover {
+      background: rgba(255, 0, 0, 0.22);
+      border-color: #ff3333;
     }
 
     main {
@@ -328,8 +333,13 @@
     }
 
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .vctr {
@@ -927,14 +937,8 @@
       </nav>
     </header>
 
+    <!-- Side Dock (YouTube Music Only) -->
     <aside class="stream-dock" aria-label="Streaming services">
-      <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="stream-btn spotify"
-        title="Open Spotify">
-        <svg viewBox="0 0 24 24" fill="#1ED760" aria-hidden="true">
-          <path
-            d="M12 2C6.477 2 2 6.477 2 12c0 5.524 4.477 10 10 10s10-4.476 10-10c0-5.523-4.477-10-10-10zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.469-.077-.334.132-.67.467-.746 3.808-.87 7.076-.51 9.721 1.114.295.18.388.563.208.857zm1.226-2.723c-.226.367-.706.482-1.072.257-2.69-1.653-6.79-2.131-9.97-1.165-.413.125-.85-.11-.975-.523-.125-.414.11-.85.524-.975 3.633-1.103 8.147-.568 11.236 1.332.366.226.482.707.257 1.074zm.106-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.494.15-1.017-.128-1.167-.622-.15-.495.13-1.018.623-1.167 3.532-1.072 9.404-.866 13.115 1.338.445.264.59.838.327 1.282-.264.444-.838.59-1.28.325z" />
-        </svg>
-      </a>
       <a href="https://music.youtube.com" target="_blank" rel="noopener noreferrer" class="stream-btn ytmusic"
         title="Open YouTube Music">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1127,7 +1131,7 @@
 
     // Audio Events
     audio.addEventListener("timeupdate", () => {
-      if (isSeeking) return; // Prevent timeupdate from fighting cursor
+      if (isSeeking) return; // Prevent fighting with seek bar during interaction
       if (!audio.duration || isNaN(audio.duration)) return;
       const p = (audio.currentTime / audio.duration) * 100;
       $("seek").value = p;
@@ -1168,11 +1172,23 @@
       initAC();
       if (ac && ac.state === "suspended") ac.resume();
 
-      audio.play().then(() => {
-        setP(true);
-      }).catch(err => {
-        console.warn("Audio play error:", err);
-      });
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          setP(true);
+        }).catch(err => {
+          console.warn("Autoplay policy waiting for user interaction:", err);
+          // Unlock audio seamlessly on the very first user interaction
+          const unlock = () => {
+            audio.play();
+            setP(true);
+            document.removeEventListener("click", unlock);
+            document.removeEventListener("touchstart", unlock);
+          };
+          document.addEventListener("click", unlock, { once: true });
+          document.addEventListener("touchstart", unlock, { once: true });
+        });
+      }
     }
 
     function pause() {
@@ -1192,7 +1208,7 @@
         pause();
       } else {
         if (!audio.src || audio.src === "" || audio.src.endsWith("/")) {
-          loadTrack(0, true);
+          loadTrack(ci, true);
         } else {
           play();
         }
@@ -1430,17 +1446,11 @@
       }
     }
 
+    // Initialize with a RANDOM song on every page load
     (function init() {
       try {
-        $("tttl").textContent = TRK[0].t;
-        $("tart").textContent = TRK[0].a;
-        $("tdisp").textContent = "0:00 / " + TRK[0].d;
-        const img = $("vart");
-        if (img) { img.src = makeArt(TRK[0].e); img.alt = TRK[0].t; }
-        audio.src = TRK[0].src;
-        sf(0);
-        vf(0.85);
-        renderSongs();
+        const randomIndex = Math.floor(Math.random() * TRK.length);
+        loadTrack(randomIndex, true);
         renderPlaylists();
       } catch (err) {
         console.warn("Init warning:", err);

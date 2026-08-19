@@ -130,7 +130,7 @@
       overflow: hidden;
     }
 
-    /* Header */
+    /* Header Desktop */
     header {
       display: flex;
       align-items: center;
@@ -239,7 +239,7 @@
       background: rgba(90, 40, 8, 0.85);
     }
 
-    /* Floating External Links (Only YouTube Music) */
+    /* Floating External Links */
     .stream-dock {
       position: absolute;
       top: 68px;
@@ -317,7 +317,7 @@
       position: relative;
     }
 
-    /* Mini vinyl record with continuous paused/running state */
+    /* Mini vinyl record */
     #vw {
       flex-shrink: 0;
       position: relative;
@@ -435,7 +435,7 @@
       flex-shrink: 0;
     }
 
-    /* Controls matching screenshot exactly */
+    /* Controls */
     #ctrl {
       display: flex;
       align-items: center;
@@ -815,10 +815,51 @@
       line-height: 1.4;
     }
 
+    /* Mobile view: Fix overlap completely */
     @media (max-width: 680px) {
+      header {
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+      }
+
+      .header-left,
+      .header-center,
+      .header-right {
+        position: static;
+        transform: none;
+      }
+
+      #clk {
+        font-size: 0.74rem;
+      }
+
+      #lbadge {
+        font-size: 0.68rem;
+        padding: 3px 8px;
+        gap: 4px;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .header-right {
+        gap: 4px;
+      }
+
+      .header-right .pill {
+        padding: 4px 7px;
+        font-size: 0.68rem;
+        gap: 3px;
+      }
+
       .stream-dock {
-        top: 56px;
-        right: 12px;
+        top: 52px;
+        right: 10px;
         gap: 6px;
       }
 
@@ -830,24 +871,6 @@
       .stream-btn svg {
         width: 15px;
         height: 15px;
-      }
-
-      header {
-        padding: 10px 12px;
-      }
-
-      #clk {
-        font-size: 0.8rem;
-      }
-
-      #lbadge {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-      }
-
-      .header-right .pill {
-        padding: 4px 8px;
-        font-size: 0.7rem;
       }
 
       #player {
@@ -975,16 +998,16 @@
         <div id="clk">3:39 PM</div>
       </div>
 
+      <!-- Centered/Flex-safe Cooking Badge -->
       <div class="header-center">
         <div id="lbadge">
-          <div class="dot"></div><span id="lcnt">148</span>&nbsp;cooking
+          <div class="dot"></div><span id="lcnt">24</span>&nbsp;cooking
         </div>
       </div>
 
       <nav class="header-right">
         <button class="pill" onclick="om('playlists')">📻 Playlists</button>
         <button class="pill" onclick="om('songs')">🎵 Songs</button>
-        <button class="pill" onclick="om('install')">📲 Install</button>
       </nav>
     </header>
 
@@ -1019,7 +1042,7 @@
           </div>
         </div>
 
-        <!-- Custom Controls matching screenshot -->
+        <!-- Controls matching screenshot -->
         <div id="ctrl">
           <!-- Previous Button -->
           <button class="cbut" id="prevb" aria-label="Previous Track">
@@ -1206,7 +1229,7 @@
 
     // Audio Events
     audio.addEventListener("timeupdate", () => {
-      if (isSeeking) return; // Prevent fight with seek slider
+      if (isSeeking) return;
       if (!audio.duration || isNaN(audio.duration)) return;
       const p = (audio.currentTime / audio.duration) * 100;
       $("seek").value = p;
@@ -1403,9 +1426,10 @@
     }
     clk(); setInterval(clk, 1000);
 
-    let lb = 148;
+    // Number of listeners cooking: Kept between 10 and 40
+    let lb = 24;
     setInterval(() => {
-      lb = Math.max(110, Math.min(280, lb + Math.floor(Math.random() * 14) - 6));
+      lb = Math.max(10, Math.min(40, lb + Math.floor(Math.random() * 5) - 2));
       $("lcnt").textContent = lb;
     }, 3800);
 
@@ -1530,7 +1554,7 @@
       }
     }
 
-    // Initialize with a RANDOM song on every page load
+    // Initialize with a RANDOM song on every page load[cite: 14]
     (function init() {
       try {
         const randomIndex = Math.floor(Math.random() * TRK.length);

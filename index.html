@@ -38,7 +38,7 @@
       --bg-glass: rgba(28, 11, 2, 0.90);
       --border-glass: rgba(255, 210, 130, 0.38);
       --radius-pill: 9999px;
-      --radius-card: 24px;
+      --radius-card: 20px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-top: env(safe-area-inset-top, 0px);
     }
@@ -76,7 +76,7 @@
     /* Ambient cooking steam particles */
     .steam {
       position: fixed;
-      bottom: 140px;
+      bottom: 120px;
       width: 6px;
       border-radius: 50%;
       background: rgba(255, 240, 200, 0.14);
@@ -123,12 +123,12 @@
       overflow: hidden;
     }
 
-    /* Header - EXACT CENTER TOP BADGE */
+    /* Header */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 22px;
+      padding: 14px 20px;
       position: relative;
       flex-shrink: 0;
       z-index: 20;
@@ -142,14 +142,13 @@
 
     #clk {
       font-family: 'Roboto Mono', monospace;
-      font-size: 1rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--tp);
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8), 0 0 16px var(--sa-glow);
       letter-spacing: 0.04em;
     }
 
-    /* EXACT CENTER TOP COOKING BADGE */
     .header-center {
       position: absolute;
       left: 50%;
@@ -164,14 +163,14 @@
     #lbadge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       background: rgba(42, 16, 3, 0.78);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-glass);
       border-radius: var(--radius-pill);
-      padding: 6px 16px;
-      font-size: 0.84rem;
+      padding: 5px 14px;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--tp);
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(245, 166, 35, 0.2);
@@ -179,8 +178,8 @@
     }
 
     .dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--sa);
       animation: ps 1.8s infinite;
@@ -204,7 +203,7 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       z-index: 2;
     }
 
@@ -212,7 +211,7 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 7px 14px;
+      padding: 6px 12px;
       border-radius: var(--radius-pill);
       background: rgba(45, 18, 3, 0.72);
       backdrop-filter: blur(18px);
@@ -220,13 +219,12 @@
       border: 1px solid var(--border-glass);
       color: var(--tp);
       font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       white-space: nowrap;
       transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
     }
 
     .pill:active {
@@ -234,14 +232,14 @@
       background: rgba(90, 40, 8, 0.85);
     }
 
-    /* Floating External Streaming Links */
+    /* Floating External Links */
     .stream-dock {
       position: absolute;
-      top: 74px;
-      right: 22px;
+      top: 68px;
+      right: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       z-index: 30;
     }
 
@@ -249,8 +247,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: rgba(35, 14, 2, 0.82);
       backdrop-filter: blur(16px);
@@ -262,9 +260,8 @@
     }
 
     .stream-btn svg {
-      width: 21px;
-      height: 21px;
-      transition: transform 0.2s ease;
+      width: 18px;
+      height: 18px;
     }
 
     .stream-btn:hover {
@@ -272,21 +269,6 @@
       border-color: rgba(255, 210, 130, 0.7);
     }
 
-    .stream-btn.spotify:hover {
-      background: rgba(30, 215, 96, 0.22);
-      border-color: #1ed760;
-    }
-
-    .stream-btn.ytmusic:hover {
-      background: rgba(255, 0, 0, 0.22);
-      border-color: #ff3333;
-    }
-
-    .stream-btn:active {
-      transform: scale(0.94);
-    }
-
-    /* Clean Center Stage - Completely Unobstructed Background */
     main {
       flex: 1;
       display: flex;
@@ -297,47 +279,47 @@
       pointer-events: none;
     }
 
-    /* Player wrap */
+    /* Compact Player wrap */
     #pw {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 14px 14px;
+      padding: 0 12px 10px;
       z-index: 20;
     }
 
     #player {
       background: var(--bg-glass);
-      backdrop-filter: blur(34px) saturate(190%);
-      -webkit-backdrop-filter: blur(34px) saturate(190%);
+      backdrop-filter: blur(30px) saturate(190%);
+      -webkit-backdrop-filter: blur(30px) saturate(190%);
       border: 1.5px solid var(--border-glass);
-      border-radius: 30px;
-      box-shadow: 0 14px 48px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 200, 100, 0.2) inset;
+      border-radius: 22px;
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 200, 100, 0.2) inset;
       width: 100%;
-      max-width: 880px;
-      padding: 12px 18px;
+      max-width: 680px;
+      padding: 8px 14px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       position: relative;
     }
 
-    /* Mini vinyl record in player bar */
+    /* Mini vinyl record */
     #vw {
       flex-shrink: 0;
       position: relative;
-      width: 60px;
-      height: 60px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
     }
 
     #vart {
-      width: 60px;
-      height: 60px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      border: 2px solid rgba(255, 200, 100, 0.45);
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.6);
+      border: 1.5px solid rgba(255, 200, 100, 0.45);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.6);
       display: block;
     }
 
@@ -346,13 +328,8 @@
     }
 
     @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .vctr {
@@ -360,11 +337,11 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 13px;
-      height: 13px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: radial-gradient(circle, #fdf0d0 30%, #888 100%);
-      border: 2px solid rgba(255, 255, 255, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
       pointer-events: none;
     }
 
@@ -373,22 +350,21 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       min-width: 0;
     }
 
     #tttl {
-      font-size: 0.95rem;
+      font-size: 0.86rem;
       font-weight: 700;
       color: var(--tp);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      letter-spacing: 0.01em;
     }
 
     #tart {
-      font-size: 0.76rem;
+      font-size: 0.70rem;
       color: var(--tm);
       white-space: nowrap;
       overflow: hidden;
@@ -399,14 +375,14 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     #seek {
       flex: 1;
       -webkit-appearance: none;
       appearance: none;
-      height: 4px;
+      height: 5px;
       border-radius: 4px;
       background: rgba(255, 200, 100, 0.2);
       outline: none;
@@ -415,17 +391,17 @@
 
     #seek::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--sa);
-      box-shadow: 0 0 8px var(--sa);
+      box-shadow: 0 0 6px var(--sa);
       cursor: pointer;
     }
 
     #seek::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--sa);
       border: none;
@@ -434,7 +410,7 @@
 
     #tdisp {
       font-family: 'Roboto Mono', monospace;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--tm);
       white-space: nowrap;
       flex-shrink: 0;
@@ -444,7 +420,7 @@
     #ctrl {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-shrink: 0;
     }
 
@@ -452,14 +428,14 @@
       background: rgba(255, 200, 80, 0.1);
       border: 1px solid rgba(255, 200, 80, 0.25);
       border-radius: 50%;
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--tp);
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       transition: background 0.15s, transform 0.12s;
     }
 
@@ -469,8 +445,8 @@
     }
 
     #pbut {
-      width: 52px;
-      height: 52px;
+      width: 40px;
+      height: 40px;
       background: linear-gradient(145deg, #fdf0d0, #f5c878);
       border: 2px solid rgba(255, 255, 255, 0.75);
       border-radius: 50%;
@@ -478,11 +454,11 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.35rem;
+      font-size: 1.1rem;
       color: #351200;
       flex-shrink: 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(245, 166, 35, 0.25);
-      transition: transform 0.12s, box-shadow 0.15s;
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.5);
+      transition: transform 0.12s;
     }
 
     #pbut:active {
@@ -493,22 +469,22 @@
     #vgrp {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex-shrink: 0;
     }
 
     #vico {
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       cursor: pointer;
       color: var(--tm);
       user-select: none;
-      padding: 4px;
+      padding: 2px;
     }
 
     #vslid {
       -webkit-appearance: none;
       appearance: none;
-      width: 68px;
+      width: 52px;
       height: 4px;
       border-radius: 4px;
       background: rgba(255, 200, 100, 0.2);
@@ -518,8 +494,8 @@
 
     #vslid::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: var(--cr);
       cursor: pointer;
@@ -528,13 +504,13 @@
     #hiss {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 6px 11px;
+      gap: 3px;
+      padding: 5px 9px;
       border-radius: var(--radius-pill);
       background: rgba(255, 200, 80, 0.08);
       border: 1px solid rgba(255, 200, 80, 0.25);
       color: var(--tm);
-      font-size: 0.74rem;
+      font-size: 0.68rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
@@ -545,17 +521,16 @@
       background: rgba(245, 166, 35, 0.25);
       border-color: rgba(245, 166, 35, 0.65);
       color: var(--sa);
-      box-shadow: 0 0 10px rgba(245, 166, 35, 0.3);
     }
 
     #contact {
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       color: rgba(253, 240, 208, 0.4);
       text-align: center;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
-    /* Drawers / Modals */
+    /* Drawers */
     .mover {
       position: fixed;
       inset: 0;
@@ -582,7 +557,7 @@
       -webkit-backdrop-filter: blur(36px) saturate(190%);
       border: 1px solid var(--border-glass);
       border-bottom: none;
-      border-radius: 28px 28px 0 0;
+      border-radius: 24px 24px 0 0;
       width: 100%;
       max-width: 640px;
       max-height: 85vh;
@@ -603,7 +578,7 @@
       height: 4px;
       background: rgba(255, 200, 100, 0.3);
       border-radius: 2px;
-      margin: 12px auto 6px;
+      margin: 10px auto 4px;
       flex-shrink: 0;
     }
 
@@ -611,59 +586,48 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 18px 12px;
+      padding: 8px 16px 10px;
       border-bottom: 1px solid rgba(255, 200, 100, 0.12);
       flex-shrink: 0;
     }
 
     .mtit {
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--tp);
     }
 
     .mclose {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: rgba(255, 200, 80, 0.1);
       border: 1px solid rgba(255, 200, 80, 0.25);
       color: var(--tm);
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .mclose:active {
-      background: rgba(255, 200, 80, 0.3);
-    }
-
     .mbody {
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 12px 16px 24px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(245, 166, 35, 0.3) transparent;
+      padding: 10px 14px 20px;
     }
 
-    /* Song item */
     .sitem {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 14px;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: background 0.15s;
       border: 1px solid transparent;
       margin-bottom: 4px;
-    }
-
-    .sitem:active {
-      background: rgba(255, 200, 80, 0.12);
     }
 
     .sitem.cur {
@@ -673,22 +637,22 @@
 
     .snum {
       font-family: 'Roboto Mono', monospace;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--tm);
-      width: 22px;
+      width: 20px;
       text-align: right;
       flex-shrink: 0;
     }
 
     .sthumb {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       background: linear-gradient(135deg, #7c3a00, #321200);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       flex-shrink: 0;
       border: 1px solid rgba(255, 200, 80, 0.25);
     }
@@ -699,7 +663,7 @@
     }
 
     .stit {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--tp);
       overflow: hidden;
@@ -708,7 +672,7 @@
     }
 
     .sart {
-      font-size: 0.74rem;
+      font-size: 0.70rem;
       color: var(--tm);
       overflow: hidden;
       text-overflow: ellipsis;
@@ -717,73 +681,64 @@
 
     .sdur {
       font-family: 'Roboto Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--tm);
       flex-shrink: 0;
     }
 
-    /* Playlist cards */
     .pcard {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px;
-      border-radius: 18px;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
       background: rgba(255, 200, 80, 0.06);
       border: 1px solid rgba(255, 200, 80, 0.18);
       cursor: pointer;
-      margin-bottom: 12px;
-      transition: background 0.15s, transform 0.15s;
-    }
-
-    .pcard:active {
-      transform: scale(0.98);
-      background: rgba(255, 200, 80, 0.14);
+      margin-bottom: 10px;
     }
 
     .pcov {
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       flex-shrink: 0;
       border: 1px solid rgba(255, 200, 80, 0.25);
     }
 
     .pinf h4 {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--tp);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .pinf p {
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       color: var(--tm);
-      line-height: 1.35;
     }
 
     .pcount {
       display: inline-block;
-      margin-top: 5px;
-      font-size: 0.7rem;
+      margin-top: 4px;
+      font-size: 0.65rem;
       font-weight: 700;
       color: var(--sa);
       background: rgba(245, 166, 35, 0.15);
       border: 1px solid rgba(245, 166, 35, 0.35);
-      padding: 2px 8px;
+      padding: 2px 6px;
       border-radius: var(--radius-pill);
     }
 
-    /* PWA steps */
     .pstep {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 12px 0;
+      gap: 10px;
+      padding: 10px 0;
       border-bottom: 1px solid rgba(255, 200, 80, 0.1);
     }
 
@@ -792,106 +747,81 @@
     }
 
     .pnum {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--sa), #b85e00);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       color: #fff;
       flex-shrink: 0;
       margin-top: 2px;
     }
 
     .ptxt h4 {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--tp);
       margin-bottom: 2px;
     }
 
     .ptxt p {
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       color: var(--tm);
       line-height: 1.4;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 680px) {
-
       .stream-dock {
-        top: 60px;
-        right: 14px;
+        top: 56px;
+        right: 12px;
+        gap: 6px;
+      }
+      .stream-btn {
+        width: 32px;
+        height: 32px;
+      }
+      .stream-btn svg {
+        width: 15px;
+        height: 15px;
+      }
+      header {
+        padding: 10px 12px;
+      }
+      #clk {
+        font-size: 0.8rem;
+      }
+      #lbadge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+      }
+      .header-right .pill {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+      }
+      #player {
+        padding: 6px 10px;
+        border-radius: 16px;
         gap: 8px;
       }
-
-      .stream-btn {
+      #vw, #vart {
         width: 36px;
         height: 36px;
       }
-
-      .stream-btn svg {
-        width: 18px;
-        height: 18px;
-      }
-
-      header {
-        padding: 12px 14px;
-      }
-
-      #clk {
-        font-size: 0.86rem;
-      }
-
-      #lbadge {
-        font-size: 0.74rem;
-        padding: 4px 10px;
-        gap: 5px;
-      }
-
-      .header-right .pill {
-        padding: 5px 9px;
-        font-size: 0.74rem;
-        gap: 3px;
-      }
-
-      #player {
-        padding: 8px 12px;
-        border-radius: 20px;
-        gap: 10px;
-      }
-
-      #vw,
-      #vart {
-        width: 48px;
-        height: 48px;
-      }
-
-      #tttl {
-        font-size: 0.84rem;
-      }
-
-      #tart {
-        font-size: 0.7rem;
-      }
-
       #pbut {
-        width: 46px;
-        height: 46px;
-        font-size: 1.2rem;
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
       }
-
       .cbut {
-        width: 32px;
-        height: 32px;
-        font-size: 0.85rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
       }
-
-      #vgrp,
-      #hiss {
+      #vgrp, #hiss {
         display: none;
       }
     }
@@ -913,10 +843,10 @@
       <div class="mhead">
         <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
           <button id="songs-back" onclick="goBackToPlaylists()" aria-label="Back to playlists"
-            style="display:none;background:rgba(255,200,80,.12);border:1px solid rgba(255,200,80,.25);color:var(--tm);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.85rem;flex-shrink:0;align-items:center;justify-content:center">&#8592;</button>
+            style="display:none;background:rgba(255,200,80,.12);border:1px solid rgba(255,200,80,.25);color:var(--tm);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;flex-shrink:0;align-items:center;justify-content:center">&#8592;</button>
           <div>
             <span class="mtit" id="songs-heading">🎵 All Songs</span>
-            <div id="songs-sub" style="font-size:.7rem;color:var(--tm);margin-top:1px"></div>
+            <div id="songs-sub" style="font-size:.65rem;color:var(--tm);margin-top:1px"></div>
           </div>
         </div>
         <button class="mclose" onclick="cm('songs')" aria-label="Close">&#x2715;</button>
@@ -948,7 +878,7 @@
         <button class="mclose" onclick="cm('install')" aria-label="Close">&#x2715;</button>
       </div>
       <div class="mbody">
-        <p style="font-size:.82rem;color:var(--tm);margin-bottom:16px">Add पाक्दैछ to your home screen — play music
+        <p style="font-size:.78rem;color:var(--tm);margin-bottom:14px">Add पाक्दैछ to your home screen — play music
           easily while you cook!</p>
         <div class="pstep">
           <div class="pnum">1</div>
@@ -961,8 +891,7 @@
           <div class="pnum">2</div>
           <div class="ptxt">
             <h4>Tap Share / Menu</h4>
-            <p>iPhone: tap <strong>&#9633;&#8593; Share</strong> at the bottom. Android: tap <strong>&#8942;
-                menu</strong>.</p>
+            <p>iPhone: tap <strong>&#9633;&#8593; Share</strong>. Android: tap <strong>&#8942; menu</strong>.</p>
           </div>
         </div>
         <div class="pstep">
@@ -973,8 +902,7 @@
           </div>
         </div>
         <button id="pnbtn" onclick="trigPWA()"
-          style="display:none;width:100%;margin-top:16px;padding:12px;border-radius:var(--radius-pill);background:linear-gradient(135deg,var(--sa),#b85e00);border:none;color:#fff;font-weight:800;font-size:.88rem;cursor:pointer">&#9889;
-          Install Now</button>
+          style="display:none;width:100%;margin-top:14px;padding:10px;border-radius:var(--radius-pill);background:linear-gradient(135deg,var(--sa),#b85e00);border:none;color:#fff;font-weight:800;font-size:.82rem;cursor:pointer">&#9889; Install Now</button>
       </div>
     </div>
   </div>
@@ -982,26 +910,23 @@
   <!-- Main UI App -->
   <div id="app">
     <header>
-      <!-- Left: Clock -->
       <div class="header-left">
         <div id="clk">3:39 PM</div>
       </div>
 
-      <!-- Center Top: Cooking Listener Badge -->
       <div class="header-center">
         <div id="lbadge">
           <div class="dot"></div><span id="lcnt">148</span>&nbsp;cooking
         </div>
       </div>
 
-      <!-- Right: Navigation Pills -->
       <nav class="header-right">
         <button class="pill" onclick="om('playlists')">📻 Playlists</button>
         <button class="pill" onclick="om('songs')">🎵 Songs</button>
         <button class="pill" onclick="om('install')">📲 Install</button>
       </nav>
     </header>
-    <!-- Spotify & YouTube Music Quick Access Buttons -->
+
     <aside class="stream-dock" aria-label="Streaming services">
       <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="stream-btn spotify"
         title="Open Spotify">
@@ -1019,14 +944,11 @@
         </svg>
       </a>
     </aside>
-    <!-- Clean, Spacious Center Background for Retro Kitchen View -->
-    <main id="main">
-      <!-- Unobstructed retro kitchen view with rising steam -->
-    </main>
+
+    <main id="main"></main>
 
     <div id="pw">
       <div id="player" role="region" aria-label="Music Player Controls">
-        <!-- Mini Vinyl Art -->
         <div id="vw" aria-hidden="true">
           <img id="vart" src="" alt="Album art" />
           <div class="vctr"></div>
@@ -1056,322 +978,58 @@
   </div>
 
   <script>
-    // ── Track Database ───────────────────────────────────────
+    // Track Database
     const TRK = [
-      {
-        "t": "Phool Pati Bhakera",
-        "a": "OSR Movies",
-        "d": "3:56",
-        "ds": 236,
-        "src": "audio/EhLOksRnCU0.mp3",
-        "cat": "nepali",
-        "e": "🏔️"
-      },
-      {
-        "t": "Kafle - Unko Sweater",
-        "a": "Jhuma Limbu | Sujan Chapagain",
-        "d": "3:41",
-        "ds": 221,
-        "src": "audio/JqZ7Owwt2Cw.mp3",
-        "cat": "nepali",
-        "e": "🌿"
-      },
-      {
-        "t": "Mohani Lagla Hai",
-        "a": "Narayan Gopal, Asha Bhosle",
-        "d": "6:02",
-        "ds": 362,
-        "src": "audio/pzcBs8XrvyQ.mp3",
-        "cat": "nepali",
-        "e": "🍃"
-      },
-      {
-        "t": "Bagaichama Najau Timi",
-        "a": "Shreekrishna Shrestha",
-        "d": "6:26",
-        "ds": 386,
-        "src": "audio/JF5qMTlYz8M.mp3",
-        "cat": "nepali",
-        "e": "🌙"
-      },
-      {
-        "t": "Kehi Mitho Baat Gara",
-        "a": "Narayan Gopal",
-        "d": "6:14",
-        "ds": 374,
-        "src": "audio/LFR4eMQzUr4.mp3",
-        "cat": "nepali",
-        "e": "🌺"
-      },
-      {
-        "t": "Gajalu Ti Thula Thula Aankha",
-        "a": "Ghulam Ali",
-        "d": "4:53",
-        "ds": 293,
-        "src": "audio/ftEzdVJWdDA.mp3",
-        "cat": "nepali",
-        "e": "🎋"
-      },
-      {
-        "t": "Kahile Timro Pachhauri Ma",
-        "a": "Udit Narayan | Alok Shree",
-        "d": "5:09",
-        "ds": 309,
-        "src": "audio/taeE9_EQGwY.mp3",
-        "cat": "nepali",
-        "e": "🦋"
-      },
-      {
-        "t": "Makhamali Pachheuri Sanu",
-        "a": "Muglan Movie Song",
-        "d": "7:54",
-        "ds": 474,
-        "src": "audio/hXk8mDRUcuU.mp3",
-        "cat": "nepali",
-        "e": "🌾"
-      },
-      {
-        "t": "Syndicate",
-        "a": "Bipul Chettri",
-        "d": "4:48",
-        "ds": 288,
-        "src": "audio/0bfk90rWV9U.mp3",
-        "cat": "nepali",
-        "e": "🍂"
-      },
-      {
-        "t": "Birsiney Hau Ki",
-        "a": "The Elements | Tuborg Sessions",
-        "d": "5:25",
-        "ds": 325,
-        "src": "audio/H7bzyggFYSE.mp3",
-        "cat": "nepali",
-        "e": "✨"
-      },
-      {
-        "t": "Guras Ko Fed Muni",
-        "a": "Sabin Rai & The Elektrix",
-        "d": "5:00",
-        "ds": 300,
-        "src": "audio/3VxA9_qC4As.mp3",
-        "cat": "nepali",
-        "e": "🌼"
-      },
-      {
-        "t": "Sadhai Sadhai (20th Anniv)",
-        "a": "Mantra Band",
-        "d": "7:22",
-        "ds": 442,
-        "src": "audio/kJXexryKqkc.mp3",
-        "cat": "nepali",
-        "e": "🎐"
-      },
-      {
-        "t": "Prayas",
-        "a": "Samriddhi Rai X Rohit John Chettri",
-        "d": "4:56",
-        "ds": 296,
-        "src": "audio/46idHCU5sH0.mp3",
-        "cat": "nepali",
-        "e": "🌸"
-      },
-      {
-        "t": "Ko Hau Timi",
-        "a": "Karma Band (OST First Love)",
-        "d": "5:24",
-        "ds": 324,
-        "src": "audio/imAXlJ8lbHA.mp3",
-        "cat": "nepali",
-        "e": "🌻"
-      },
-      {
-        "t": "Chihanki Pari",
-        "a": "Shirish Khadka",
-        "d": "4:15",
-        "ds": 255,
-        "src": "audio/BZTueYP5Pro.mp3",
-        "cat": "nepali",
-        "e": "🎻"
-      },
-      {
-        "t": "Maski Maski",
-        "a": "Mt. 8848",
-        "d": "4:27",
-        "ds": 267,
-        "src": "audio/T2zIT7xQwyM.mp3",
-        "cat": "nepali",
-        "e": "🎸"
-      },
-      {
-        "t": "Kaha Hola Ghar Bara",
-        "a": "Karma Band",
-        "d": "3:38",
-        "ds": 218,
-        "src": "audio/taNFbSuESXA.mp3",
-        "cat": "nepali",
-        "e": "🥁"
-      },
-      {
-        "t": "Parelima",
-        "a": "1974 AD",
-        "d": "3:55",
-        "ds": 235,
-        "src": "audio/MqFycWPbwmQ.mp3",
-        "cat": "nepali",
-        "e": "🍁"
-      },
-      {
-        "t": "Bhedako Oon Jasto",
-        "a": "Nepathya",
-        "d": "4:14",
-        "ds": 254,
-        "src": "audio/Jy0gLuvTfXk.mp3",
-        "cat": "nepali",
-        "e": "🌴"
-      },
-      {
-        "t": "Resham",
-        "a": "Nepathya",
-        "d": "4:28",
-        "ds": 268,
-        "src": "audio/BpeFXed4K6I.mp3",
-        "cat": "nepali",
-        "e": "🌲"
-      },
-      {
-        "t": "Sadhai Sadhai Mantra",
-        "a": "Mantra",
-        "d": "6:39",
-        "ds": 399,
-        "src": "audio/3tQZIkWXUXM.mp3",
-        "cat": "nepali",
-        "e": "🎋"
-      },
-      {
-        "t": "Dooriyan",
-        "a": "Love Aaj Kal | Mohit Chauhan",
-        "d": "5:38",
-        "ds": 338,
-        "src": "audio/kPtn26x8TZM.mp3",
-        "cat": "hindi",
-        "e": "🌹"
-      },
-      {
-        "t": "In Dino",
-        "a": "Life in a Metro | Soham",
-        "d": "6:39",
-        "ds": 399,
-        "src": "audio/P7JyrhGnjhg.mp3",
-        "cat": "hindi",
-        "e": "🌸"
-      },
-      {
-        "t": "Teri Jhuki Nazar",
-        "a": "Murder 3 | Shafqat Amanat Ali",
-        "d": "5:48",
-        "ds": 348,
-        "src": "audio/xrSZLa14haA.mp3",
-        "cat": "hindi",
-        "e": "💛"
-      },
-      {
-        "t": "Mitwa",
-        "a": "Kabhi Alvida Naa Kehna | Shafqat",
-        "d": "6:01",
-        "ds": 361,
-        "src": "audio/ru_5PA8cwkE.mp3",
-        "cat": "hindi",
-        "e": "💖"
-      },
-      {
-        "t": "Tere Bina",
-        "a": "Guru | A.R. Rahman",
-        "d": "5:09",
-        "ds": 309,
-        "src": "audio/_mwqXnTEHSc.mp3",
-        "cat": "hindi",
-        "e": "🎶"
-      },
-      {
-        "t": "Aaj Din Chadheya",
-        "a": "Love Aaj Kal | Rahat Fateh Ali",
-        "d": "5:13",
-        "ds": 313,
-        "src": "audio/IImcBEHuDRI.mp3",
-        "cat": "hindi",
-        "e": "🪷"
-      },
-      {
-        "t": "Bakhuda Tumhi Ho",
-        "a": "Atif Aslam | Alka Yagnik",
-        "d": "4:42",
-        "ds": 282,
-        "src": "audio/-kI769Xigik.mp3",
-        "cat": "hindi",
-        "e": "🌼"
-      },
-      {
-        "t": "Zara Sa",
-        "a": "Jannat | KK",
-        "d": "5:08",
-        "ds": 308,
-        "src": "audio/-8C_2BBVWk8.mp3",
-        "cat": "hindi",
-        "e": "🎸"
-      },
-      {
-        "t": "Zindagi Do Pal Ki",
-        "a": "Kites | KK",
-        "d": "4:01",
-        "ds": 241,
-        "src": "audio/r-XG86T2jNc.mp3",
-        "cat": "hindi",
-        "e": "🌻"
-      },
-      {
-        "t": "Main Rahoon Ya Na Rahoon",
-        "a": "Armaan Malik",
-        "d": "6:46",
-        "ds": 406,
-        "src": "audio/Dp6lbdoprZ0.mp3",
-        "cat": "hindi",
-        "e": "💫"
-      },
-      {
-        "t": "Kaise Mujhe Tum Mil Gayi",
-        "a": "Ghajini | Benny Dayal, Shreya",
-        "d": "7:02",
-        "ds": 422,
-        "src": "audio/MdhjLM-99lQ.mp3",
-        "cat": "hindi",
-        "e": "🎵"
-      },
-      {
-        "t": "Afreen Afreen",
-        "a": "Coke Studio | Rahat Fateh Ali & Momina",
-        "d": "6:45",
-        "ds": 405,
-        "src": "audio/kw4tT7SCmaY.mp3",
-        "cat": "hindi",
-        "e": "🥀"
-      }
+      { "t": "Phool Pati Bhakera", "a": "OSR Movies", "d": "3:56", "ds": 236, "src": "audio/EhLOksRnCU0.mp3", "cat": "nepali", "e": "🏔️" },
+      { "t": "Kafle - Unko Sweater", "a": "Jhuma Limbu | Sujan Chapagain", "d": "3:41", "ds": 221, "src": "audio/JqZ7Owwt2Cw.mp3", "cat": "nepali", "e": "🌿" },
+      { "t": "Mohani Lagla Hai", "a": "Narayan Gopal, Asha Bhosle", "d": "6:02", "ds": 362, "src": "audio/pzcBs8XrvyQ.mp3", "cat": "nepali", "e": "🍃" },
+      { "t": "Bagaichama Najau Timi", "a": "Shreekrishna Shrestha", "d": "6:26", "ds": 386, "src": "audio/JF5qMTlYz8M.mp3", "cat": "nepali", "e": "🌙" },
+      { "t": "Kehi Mitho Baat Gara", "a": "Narayan Gopal", "d": "6:14", "ds": 374, "src": "audio/LFR4eMQzUr4.mp3", "cat": "nepali", "e": "🌺" },
+      { "t": "Gajalu Ti Thula Thula Aankha", "a": "Ghulam Ali", "d": "4:53", "ds": 293, "src": "audio/ftEzdVJWdDA.mp3", "cat": "nepali", "e": "🎋" },
+      { "t": "Kahile Timro Pachhauri Ma", "a": "Udit Narayan | Alok Shree", "d": "5:09", "ds": 309, "src": "audio/taeE9_EQGwY.mp3", "cat": "nepali", "e": "🦋" },
+      { "t": "Makhamali Pachheuri Sanu", "a": "Muglan Movie Song", "d": "7:54", "ds": 474, "src": "audio/hXk8mDRUcuU.mp3", "cat": "nepali", "e": "🌾" },
+      { "t": "Syndicate", "a": "Bipul Chettri", "d": "4:48", "ds": 288, "src": "audio/0bfk90rWV9U.mp3", "cat": "nepali", "e": "🍂" },
+      { "t": "Birsiney Hau Ki", "a": "The Elements | Tuborg Sessions", "d": "5:25", "ds": 325, "src": "audio/H7bzyggFYSE.mp3", "cat": "nepali", "e": "✨" },
+      { "t": "Guras Ko Fed Muni", "a": "Sabin Rai & The Elektrix", "d": "5:00", "ds": 300, "src": "audio/3VxA9_qC4As.mp3", "cat": "nepali", "e": "🌼" },
+      { "t": "Sadhai Sadhai (20th Anniv)", "a": "Mantra Band", "d": "7:22", "ds": 442, "src": "audio/kJXexryKqkc.mp3", "cat": "nepali", "e": "🎐" },
+      { "t": "Prayas", "a": "Samriddhi Rai X Rohit John Chettri", "d": "4:56", "ds": 296, "src": "audio/46idHCU5sH0.mp3", "cat": "nepali", "e": "🌸" },
+      { "t": "Ko Hau Timi", "a": "Karma Band (OST First Love)", "d": "5:24", "ds": 324, "src": "audio/imAXlJ8lbHA.mp3", "cat": "nepali", "e": "🌻" },
+      { "t": "Chihanki Pari", "a": "Shirish Khadka", "d": "4:15", "ds": 255, "src": "audio/BZTueYP5Pro.mp3", "cat": "nepali", "e": "🎻" },
+      { "t": "Maski Maski", "a": "Mt. 8848", "d": "4:27", "ds": 267, "src": "audio/T2zIT7xQwyM.mp3", "cat": "nepali", "e": "🎸" },
+      { "t": "Kaha Hola Ghar Bara", "a": "Karma Band", "d": "3:38", "ds": 218, "src": "audio/taNFbSuESXA.mp3", "cat": "nepali", "e": "🥁" },
+      { "t": "Parelima", "a": "1974 AD", "d": "3:55", "ds": 235, "src": "audio/MqFycWPbwmQ.mp3", "cat": "nepali", "e": "🍁" },
+      { "t": "Bhedako Oon Jasto", "a": "Nepathya", "d": "4:14", "ds": 254, "src": "audio/Jy0gLuvTfXk.mp3", "cat": "nepali", "e": "🌴" },
+      { "t": "Resham", "a": "Nepathya", "d": "4:28", "ds": 268, "src": "audio/BpeFXed4K6I.mp3", "cat": "nepali", "e": "🌲" },
+      { "t": "Sadhai Sadhai Mantra", "a": "Mantra", "d": "6:39", "ds": 399, "src": "audio/3tQZIkWXUXM.mp3", "cat": "nepali", "e": "🎋" },
+      { "t": "Dooriyan", "a": "Love Aaj Kal | Mohit Chauhan", "d": "5:38", "ds": 338, "src": "audio/kPtn26x8TZM.mp3", "cat": "hindi", "e": "🌹" },
+      { "t": "In Dino", "a": "Life in a Metro | Soham", "d": "6:39", "ds": 399, "src": "audio/P7JyrhGnjhg.mp3", "cat": "hindi", "e": "🌸" },
+      { "t": "Teri Jhuki Nazar", "a": "Murder 3 | Shafqat Amanat Ali", "d": "5:48", "ds": 348, "src": "audio/xrSZLa14haA.mp3", "cat": "hindi", "e": "💛" },
+      { "t": "Mitwa", "a": "Kabhi Alvida Naa Kehna | Shafqat", "d": "6:01", "ds": 361, "src": "audio/ru_5PA8cwkE.mp3", "cat": "hindi", "e": "💖" },
+      { "t": "Tere Bina", "a": "Guru | A.R. Rahman", "d": "5:09", "ds": 309, "src": "audio/_mwqXnTEHSc.mp3", "cat": "hindi", "e": "🎶" },
+      { "t": "Aaj Din Chadheya", "a": "Love Aaj Kal | Rahat Fateh Ali", "d": "5:13", "ds": 313, "src": "audio/IImcBEHuDRI.mp3", "cat": "hindi", "e": "🪷" },
+      { "t": "Bakhuda Tumhi Ho", "a": "Atif Aslam | Alka Yagnik", "d": "4:42", "ds": 282, "src": "audio/-kI769Xigik.mp3", "cat": "hindi", "e": "🌼" },
+      { "t": "Zara Sa", "a": "Jannat | KK", "d": "5:08", "ds": 308, "src": "audio/-8C_2BBVWk8.mp3", "cat": "hindi", "e": "🎸" },
+      { "t": "Zindagi Do Pal Ki", "a": "Kites | KK", "d": "4:01", "ds": 241, "src": "audio/r-XG86T2jNc.mp3", "cat": "hindi", "e": "🌻" },
+      { "t": "Main Rahoon Ya Na Rahoon", "a": "Armaan Malik", "d": "6:46", "ds": 406, "src": "audio/Dp6lbdoprZ0.mp3", "cat": "hindi", "e": "💫" },
+      { "t": "Kaise Mujhe Tum Mil Gayi", "a": "Ghajini | Benny Dayal, Shreya", "d": "7:02", "ds": 422, "src": "audio/MdhjLM-99lQ.mp3", "cat": "hindi", "e": "🎵" },
+      { "t": "Afreen Afreen", "a": "Coke Studio | Rahat Fateh Ali & Momina", "d": "6:45", "ds": 405, "src": "audio/kw4tT7SCmaY.mp3", "cat": "hindi", "e": "🥀" }
     ];
 
-    // ── State Variables ──────────────────────────────────────
+    // State Variables
     let ci = 0;
     let ip = false;
     let mu = false;
     let ho = false;
     let dp = null;
     let activeCat = null;
+    let isSeeking = false;
     let ac = null, hn = null, hg = null;
 
-    // HTML5 Audio Object
     const audio = new Audio();
     audio.preload = "auto";
     audio.volume = 0.85;
 
-    function $(id) {return document.getElementById(id);}
+    function $(id) { return document.getElementById(id); }
 
     function fmt(s) {
       if (!isFinite(s) || isNaN(s)) return "0:00";
@@ -1379,7 +1037,6 @@
       return Math.floor(s / 60) + ":" + Math.floor(s % 60).toString().padStart(2, "0");
     }
 
-    // ── Audio Context & Vintage Hiss Generator ────────────────
     function initAC() {
       try {
         if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
@@ -1391,7 +1048,7 @@
     function buildHiss() {
       try {
         if (!ac) return;
-        if (hn) {try {hn.stop();} catch (e) { } hn.disconnect(); hn = null;}
+        if (hn) { try { hn.stop(); } catch (e) { } hn.disconnect(); hn = null; }
         const buf = ac.createBuffer(1, ac.sampleRate * 4, ac.sampleRate);
         const d = buf.getChannelData(0);
         for (let i = 0; i < d.length; i++) {
@@ -1425,7 +1082,6 @@
       $("hiss").classList.toggle("on", ho);
     }
 
-    // ── Vinyl Canvas Artwork Generator ────────────────────────
     function makeArt(e) {
       const cv = document.createElement("canvas");
       cv.width = cv.height = 128;
@@ -1469,8 +1125,9 @@
       return cv.toDataURL();
     }
 
-    // ── HTML5 Audio Events ───────────────────────────────────
+    // Audio Events
     audio.addEventListener("timeupdate", () => {
+      if (isSeeking) return; // Prevent timeupdate from fighting cursor
       if (!audio.duration || isNaN(audio.duration)) return;
       const p = (audio.currentTime / audio.duration) * 100;
       $("seek").value = p;
@@ -1482,7 +1139,6 @@
     audio.addEventListener("pause", () => setP(false));
     audio.addEventListener("ended", () => next());
 
-    // ── Track Loading & Controls ─────────────────────────────
     function loadTrack(idx, autoplay = false) {
       if (idx < 0 || idx >= TRK.length) return;
       const t = TRK[idx];
@@ -1495,7 +1151,7 @@
       sf(0);
 
       const img = $("vart");
-      if (img) {img.src = makeArt(t.e); img.alt = t.t;}
+      if (img) { img.src = makeArt(t.e); img.alt = t.t; }
 
       audio.src = t.src;
       audio.load();
@@ -1571,12 +1227,45 @@
     $("prevb").addEventListener("click", prev);
     $("nextb").addEventListener("click", next);
 
-    // Seek slider
-    $("seek").addEventListener("input", e => {
-      const p = parseFloat(e.target.value);
+    // Precise timeline seeker handlers
+    const seekEl = $("seek");
+
+    function applySeek(val) {
+      const p = parseFloat(val);
       sf(p);
       if (audio.duration && !isNaN(audio.duration)) {
         audio.currentTime = (p / 100) * audio.duration;
+        $("tdisp").textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+      }
+    }
+
+    seekEl.addEventListener("mousedown", () => { isSeeking = true; });
+    seekEl.addEventListener("touchstart", () => { isSeeking = true; }, { passive: true });
+
+    seekEl.addEventListener("input", e => {
+      isSeeking = true;
+      const p = parseFloat(e.target.value);
+      sf(p);
+      if (audio.duration && !isNaN(audio.duration)) {
+        $("tdisp").textContent = fmt((p / 100) * audio.duration) + " / " + fmt(audio.duration);
+      }
+    });
+
+    seekEl.addEventListener("change", e => {
+      applySeek(e.target.value);
+      isSeeking = false;
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (isSeeking) {
+        applySeek(seekEl.value);
+        isSeeking = false;
+      }
+    });
+    window.addEventListener("touchend", () => {
+      if (isSeeking) {
+        applySeek(seekEl.value);
+        isSeeking = false;
       }
     });
 
@@ -1602,10 +1291,9 @@
 
     $("hiss").addEventListener("click", toggleHiss);
 
-    function sf(p) {$("seek").style.background = "linear-gradient(to right,#f5a623 " + p + "%,rgba(255,200,100,.2) " + p + "%)";}
-    function vf(v) {$("vslid").style.background = "linear-gradient(to right,#fdf0d0 " + (v * 100) + "%,rgba(255,200,100,.2) " + (v * 100) + "%)";}
+    function sf(p) { $("seek").style.background = "linear-gradient(to right,#f5a623 " + p + "%,rgba(255,200,100,.2) " + p + "%)"; }
+    function vf(v) { $("vslid").style.background = "linear-gradient(to right,#fdf0d0 " + (v * 100) + "%,rgba(255,200,100,.2) " + (v * 100) + "%)"; }
 
-    // Clock update
     function clk() {
       const n = new Date();
       let h = n.getHours(), m = n.getMinutes().toString().padStart(2, "0");
@@ -1615,14 +1303,12 @@
     }
     clk(); setInterval(clk, 1000);
 
-    // Fluctuate listener count
     let lb = 148;
     setInterval(() => {
       lb = Math.max(110, Math.min(280, lb + Math.floor(Math.random() * 14) - 6));
       $("lcnt").textContent = lb;
     }, 3800);
 
-    // ── Modals & Drawer Navigation ───────────────────────────
     function om(n) {
       if (n === "songs") {
         if (!activeCat) {
@@ -1658,7 +1344,6 @@
       }
     });
 
-    // Category definitions
     const CATS = {
       nepali: {
         label: "Nepali Songs",
@@ -1678,8 +1363,8 @@
 
     function renderSongs(filter) {
       const list = filter
-        ? TRK.map((t, i) => ({...t, _i: i})).filter(t => t.cat === filter)
-        : TRK.map((t, i) => ({...t, _i: i}));
+        ? TRK.map((t, i) => ({ ...t, _i: i })).filter(t => t.cat === filter)
+        : TRK.map((t, i) => ({ ...t, _i: i }));
 
       if (!list.length) {
         $("songlist").innerHTML = "<p style='color:var(--tm);font-size:.85rem;padding:24px 0;text-align:center'>No songs found in this category.</p>";
@@ -1733,7 +1418,6 @@
       }).join("");
     }
 
-    // ── PWA Install Prompt ────────────────────────────────────
     window.addEventListener("beforeinstallprompt", e => {
       e.preventDefault();
       dp = e;
@@ -1742,18 +1426,17 @@
     function trigPWA() {
       if (dp) {
         dp.prompt();
-        dp.userChoice.then(() => {dp = null;});
+        dp.userChoice.then(() => { dp = null; });
       }
     }
 
-    // ── Application Bootstrapping ─────────────────────────────
     (function init() {
       try {
         $("tttl").textContent = TRK[0].t;
         $("tart").textContent = TRK[0].a;
         $("tdisp").textContent = "0:00 / " + TRK[0].d;
         const img = $("vart");
-        if (img) {img.src = makeArt(TRK[0].e); img.alt = TRK[0].t;}
+        if (img) { img.src = makeArt(TRK[0].e); img.alt = TRK[0].t; }
         audio.src = TRK[0].src;
         sf(0);
         vf(0.85);

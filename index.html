@@ -62,7 +62,7 @@
       transform: translateZ(0);
     }
 
-    /* Load dedicated mobile background */
+    /* Mobile background image switch */
     @media (max-width: 680px) {
       #bg {
         background-image: url('pakdaicha%20mob.jpg');
@@ -239,7 +239,7 @@
       background: rgba(90, 40, 8, 0.85);
     }
 
-    /* Floating External Links */
+    /* Floating External Links (Only YouTube Music) */
     .stream-dock {
       position: absolute;
       top: 68px;
@@ -313,30 +313,32 @@
       padding: 8px 14px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       position: relative;
     }
 
-    /* Mini vinyl record */
+    /* Mini vinyl record with continuous paused/running state */
     #vw {
       flex-shrink: 0;
       position: relative;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
     }
 
     #vart {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       border: 1.5px solid rgba(255, 200, 100, 0.45);
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.6);
       display: block;
+      animation: spin 3.5s linear infinite;
+      animation-play-state: paused;
     }
 
     #vart.sp {
-      animation: spin 3.5s linear infinite;
+      animation-play-state: running;
     }
 
     @keyframes spin {
@@ -354,8 +356,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: radial-gradient(circle, #fdf0d0 30%, #888 100%);
       border: 1.5px solid rgba(255, 255, 255, 0.7);
@@ -433,53 +435,75 @@
       flex-shrink: 0;
     }
 
-    /* Controls */
+    /* Controls matching screenshot exactly */
     #ctrl {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
     .cbut {
-      background: rgba(255, 200, 80, 0.1);
-      border: 1px solid rgba(255, 200, 80, 0.25);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--tp);
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: background 0.15s, transform 0.12s;
+      color: rgba(255, 255, 255, 0.75);
+      transition: color 0.15s, transform 0.12s;
+    }
+
+    .cbut:hover {
+      color: #ffffff;
     }
 
     .cbut:active {
-      transform: scale(0.92);
-      background: rgba(255, 200, 80, 0.25);
+      transform: scale(0.90);
+    }
+
+    .cbut svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
     }
 
     #pbut {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(145deg, #fdf0d0, #f5c878);
-      border: 2px solid rgba(255, 255, 255, 0.75);
+      width: 44px;
+      height: 44px;
+      background: #ffffff;
+      color: #1a2228;
+      border: none;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.1rem;
-      color: #351200;
       flex-shrink: 0;
-      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.5);
-      transition: transform 0.12s;
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+      transition: transform 0.12s, background 0.15s;
+    }
+
+    #pbut:hover {
+      background: #f0f0f0;
+      transform: scale(1.04);
     }
 
     #pbut:active {
-      transform: scale(0.94);
+      transform: scale(0.93);
+    }
+
+    #pbut svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+    }
+
+    .icon-play {
+      margin-left: 2px;
     }
 
     /* Volume */
@@ -838,16 +862,23 @@
         height: 36px;
       }
 
+      #ctrl {
+        gap: 6px;
+      }
+
       #pbut {
-        width: 34px;
-        height: 34px;
-        font-size: 0.95rem;
+        width: 36px;
+        height: 36px;
+      }
+
+      #pbut svg {
+        width: 14px;
+        height: 14px;
       }
 
       .cbut {
-        width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
+        width: 22px;
+        height: 22px;
       }
 
       #vgrp,
@@ -946,7 +977,7 @@
 
       <div class="header-center">
         <div id="lbadge">
-          <div class="dot"></div><span id="lcnt">14</span>&nbsp;cooking
+          <div class="dot"></div><span id="lcnt">148</span>&nbsp;cooking
         </div>
       </div>
 
@@ -973,6 +1004,7 @@
 
     <div id="pw">
       <div id="player" role="region" aria-label="Music Player Controls">
+        <!-- Mini Vinyl Music Icon -->
         <div id="vw" aria-hidden="true">
           <img id="vart" src="" alt="Album art" />
           <div class="vctr"></div>
@@ -986,11 +1018,34 @@
             <span id="tdisp">0:00 / 0:00</span>
           </div>
         </div>
+
+        <!-- Custom Controls matching screenshot -->
         <div id="ctrl">
-          <button class="cbut" id="prevb" aria-label="Previous Track">&#9198;</button>
-          <button id="pbut" aria-label="Play" onclick="togglePlayPause()">&#9654;</button>
-          <button class="cbut" id="nextb" aria-label="Next Track">&#9197;</button>
+          <!-- Previous Button -->
+          <button class="cbut" id="prevb" aria-label="Previous Track">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+            </svg>
+          </button>
+
+          <!-- Play/Pause Button -->
+          <button id="pbut" aria-label="Play" onclick="togglePlayPause()">
+            <svg id="playIcon" class="icon-play" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          </button>
+
+          <!-- Next Button -->
+          <button class="cbut" id="nextb" aria-label="Next Track">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+            </svg>
+          </button>
         </div>
+
         <div id="vgrp">
           <span id="vico" role="button" tabindex="0" title="Mute/Unmute">&#128266;</span>
           <input type="range" id="vslid" min="0" max="1" step="0.01" value="0.85" aria-label="Volume" />
@@ -1002,7 +1057,7 @@
   </div>
 
   <script>
-    // Track Database
+    // Track Database[cite: 14]
     const TRK = [
       { "t": "Phool Pati Bhakera", "a": "OSR Movies", "d": "3:56", "ds": 236, "src": "audio/EhLOksRnCU0.mp3", "cat": "nepali", "e": "🏔️" },
       { "t": "Kafle - Unko Sweater", "a": "Jhuma Limbu | Sujan Chapagain", "d": "3:41", "ds": 221, "src": "audio/JqZ7Owwt2Cw.mp3", "cat": "nepali", "e": "🌿" },
@@ -1039,7 +1094,7 @@
       { "t": "Afreen Afreen", "a": "Coke Studio | Rahat Fateh Ali & Momina", "d": "6:45", "ds": 405, "src": "audio/kw4tT7SCmaY.mp3", "cat": "hindi", "e": "🥀" }
     ];
 
-    // State Variables
+    // State Variables[cite: 14]
     let ci = 0;
     let ip = false;
     let mu = false;
@@ -1151,7 +1206,7 @@
 
     // Audio Events
     audio.addEventListener("timeupdate", () => {
-      if (isSeeking) return; // Prevent timeupdate from fighting cursor
+      if (isSeeking) return; // Prevent fight with seek slider
       if (!audio.duration || isNaN(audio.duration)) return;
       const p = (audio.currentTime / audio.duration) * 100;
       $("seek").value = p;
@@ -1217,9 +1272,19 @@
 
     function setP(p) {
       ip = p;
-      $("pbut").innerHTML = p ? "&#9646;&#9646;" : "&#9654;";
+      const playIcon = $("playIcon");
+      const pauseIcon = $("pauseIcon");
+
+      if (p) {
+        playIcon.style.display = "none";
+        pauseIcon.style.display = "block";
+        $("vart").classList.add("sp");
+      } else {
+        playIcon.style.display = "block";
+        pauseIcon.style.display = "none";
+        $("vart").classList.remove("sp");
+      }
       $("pbut").setAttribute("aria-label", p ? "Pause" : "Play");
-      $("vart").classList.toggle("sp", p);
     }
 
     function togglePlayPause() {
@@ -1340,7 +1405,7 @@
 
     let lb = 148;
     setInterval(() => {
-      lb = Math.max(11, Math.min(28, lb + Math.floor(Math.random() * 7) - 3));
+      lb = Math.max(110, Math.min(280, lb + Math.floor(Math.random() * 14) - 6));
       $("lcnt").textContent = lb;
     }, 3800);
 

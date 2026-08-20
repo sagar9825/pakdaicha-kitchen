@@ -1005,40 +1005,538 @@
   <script>
     // Track Database[cite: 14]
     const TRK = [
-      { "t": "Phool Pati Bhakera", "a": "OSR Movies", "d": "3:56", "ds": 236, "src": "/audio/EhLOksRnCU0.mp3", "cat": "nepali", "e": "🏔️" },
-      { "t": "Kafle - Unko Sweater", "a": "Jhuma Limbu | Sujan Chapagain", "d": "3:41", "ds": 221, "src": "/audio/JqZ7Owwt2Cw.mp3", "cat": "nepali", "e": "🌿" },
-      { "t": "Mohani Lagla Hai", "a": "Narayan Gopal, Asha Bhosle", "d": "6:02", "ds": 362, "src": "/audio/pzcBs8XrvyQ.mp3", "cat": "nepali", "e": "🍃" },
-      { "t": "Bagaichama Najau Timi", "a": "Shreekrishna Shrestha", "d": "6:26", "ds": 386, "src": "/audio/JF5qMTlYz8M.mp3", "cat": "nepali", "e": "🌙" },
-      { "t": "Kehi Mitho Baat Gara", "a": "Narayan Gopal", "d": "6:14", "ds": 374, "src": "/audio/LFR4eMQzUr4.mp3", "cat": "nepali", "e": "🌺" },
-      { "t": "Gajalu Ti Thula Thula Aankha", "a": "Ghulam Ali", "d": "4:53", "ds": 293, "src": "/audio/ftEzdVJWdDA.mp3", "cat": "nepali", "e": "🎋" },
-      { "t": "Kahile Timro Pachhauri Ma", "a": "Udit Narayan | Alok Shree", "d": "5:09", "ds": 309, "src": "/audio/taeE9_EQGwY.mp3", "cat": "nepali", "e": "🦋" },
-      { "t": "Makhamali Pachheuri Sanu", "a": "Muglan Movie Song", "d": "7:54", "ds": 474, "src": "/audio/hXk8mDRUcuU.mp3", "cat": "nepali", "e": "🌾" },
-      { "t": "Syndicate", "a": "Bipul Chettri", "d": "4:48", "ds": 288, "src": "/audio/0bfk90rWV9U.mp3", "cat": "nepali", "e": "🍂" },
-      { "t": "Birsiney Hau Ki", "a": "The Elements | Tuborg Sessions", "d": "5:25", "ds": 325, "src": "/audio/H7bzyggFYSE.mp3", "cat": "nepali", "e": "✨" },
-      { "t": "Guras Ko Fed Muni", "a": "Sabin Rai & The Elektrix", "d": "5:00", "ds": 300, "src": "/audio/3VxA9_qC4As.mp3", "cat": "nepali", "e": "🌼" },
-      { "t": "Sadhai Sadhai (20th Anniv)", "a": "Mantra Band", "d": "7:22", "ds": 442, "src": "/audio/kJXexryKqkc.mp3", "cat": "nepali", "e": "🎐" },
-      { "t": "Prayas", "a": "Samriddhi Rai X Rohit John Chettri", "d": "4:56", "ds": 296, "src": "/audio/46idHCU5sH0.mp3", "cat": "nepali", "e": "🌸" },
-      { "t": "Ko Hau Timi", "a": "Karma Band (OST First Love)", "d": "5:24", "ds": 324, "src": "/audio/imAXlJ8lbHA.mp3", "cat": "nepali", "e": "🌻" },
-      { "t": "Chihanki Pari", "a": "Shirish Khadka", "d": "4:15", "ds": 255, "src": "/audio/BZTueYP5Pro.mp3", "cat": "nepali", "e": "🎻" },
-      { "t": "Maski Maski", "a": "Mt. 8848", "d": "4:27", "ds": 267, "src": "/audio/T2zIT7xQwyM.mp3", "cat": "nepali", "e": "🎸" },
-      { "t": "Kaha Hola Ghar Bara", "a": "Karma Band", "d": "3:38", "ds": 218, "src": "/audio/taNFbSuESXA.mp3", "cat": "nepali", "e": "🥁" },
-      { "t": "Parelima", "a": "1974 AD", "d": "3:55", "ds": 235, "src": "/audio/MqFycWPbwmQ.mp3", "cat": "nepali", "e": "🍁" },
-      { "t": "Bhedako Oon Jasto", "a": "Nepathya", "d": "4:14", "ds": 254, "src": "/audio/Jy0gLuvTfXk.mp3", "cat": "nepali", "e": "🌴" },
-      { "t": "Resham", "a": "Nepathya", "d": "4:28", "ds": 268, "src": "/audio/BpeFXed4K6I.mp3", "cat": "nepali", "e": "🌲" },
-      { "t": "Sadhai Sadhai Mantra", "a": "Mantra", "d": "6:39", "ds": 399, "src": "/audio/3tQZIkWXUXM.mp3", "cat": "nepali", "e": "🎋" },
-      { "t": "Dooriyan", "a": "Love Aaj Kal | Mohit Chauhan", "d": "5:38", "ds": 338, "src": "/audio/kPtn26x8TZM.mp3", "cat": "hindi", "e": "🌹" },
-      { "t": "In Dino", "a": "Life in a Metro | Soham", "d": "6:39", "ds": 399, "src": "/audio/P7JyrhGnjhg.mp3", "cat": "hindi", "e": "🌸" },
-      { "t": "Teri Jhuki Nazar", "a": "Murder 3 | Shafqat Amanat Ali", "d": "5:48", "ds": 348, "src": "/audio/xrSZLa14haA.mp3", "cat": "hindi", "e": "💛" },
-      { "t": "Mitwa", "a": "Kabhi Alvida Naa Kehna | Shafqat", "d": "6:01", "ds": 361, "src": "/audio/ru_5PA8cwkE.mp3", "cat": "hindi", "e": "💖" },
-      { "t": "Tere Bina", "a": "Guru | A.R. Rahman", "d": "5:09", "ds": 309, "src": "/audio/_mwqXnTEHSc.mp3", "cat": "hindi", "e": "🎶" },
-      { "t": "Aaj Din Chadheya", "a": "Love Aaj Kal | Rahat Fateh Ali", "d": "5:13", "ds": 313, "src": "/audio/IImcBEHuDRI.mp3", "cat": "hindi", "e": "🪷" },
-      { "t": "Bakhuda Tumhi Ho", "a": "Atif Aslam | Alka Yagnik", "d": "4:42", "ds": 282, "src": "/audio/-kI769Xigik.mp3", "cat": "hindi", "e": "🌼" },
-      { "t": "Zara Sa", "a": "Jannat | KK", "d": "5:08", "ds": 308, "src": "/audio/-8C_2BBVWk8.mp3", "cat": "hindi", "e": "🎸" },
-      { "t": "Zindagi Do Pal Ki", "a": "Kites | KK", "d": "4:01", "ds": 241, "src": "/audio/r-XG86T2jNc.mp3", "cat": "hindi", "e": "🌻" },
-      { "t": "Main Rahoon Ya Na Rahoon", "a": "Armaan Malik", "d": "6:46", "ds": 406, "src": "/audio/Dp6lbdoprZ0.mp3", "cat": "hindi", "e": "💫" },
-      { "t": "Kaise Mujhe Tum Mil Gayi", "a": "Ghajini | Benny Dayal, Shreya", "d": "7:02", "ds": 422, "src": "/audio/MdhjLM-99lQ.mp3", "cat": "hindi", "e": "🎵" },
-      { "t": "Afreen Afreen", "a": "Coke Studio | Rahat Fateh Ali & Momina", "d": "6:45", "ds": 405, "src": "/audio/kw4tT7SCmaY.mp3", "cat": "hindi", "e": "🥀" }
-    ];
+      {
+            "t": "Arz Kiya Hai",
+            "a": "Anuv Jain",
+            "d": "4:51",
+            "ds": 291,
+            "src": "/audio/LIEiEwpEhWM.mp3",
+            "cat": "genz",
+            "e": "⚡"
+      },
+      {
+            "t": "Saathi",
+            "a": "Yama Buddha",
+            "d": "3:55",
+            "ds": 235,
+            "src": "/audio/H-ExNmHo2xI.mp3",
+            "cat": "genz",
+            "e": "🎧"
+      },
+      {
+            "t": "Liggi",
+            "a": "Ritviz",
+            "d": "3:12",
+            "ds": 192,
+            "src": "/audio/6BYIKEH0RCQ.mp3",
+            "cat": "genz",
+            "e": "🛹"
+      },
+      {
+            "t": "Budho Bhaiyo",
+            "a": "The Firantee",
+            "d": "4:31",
+            "ds": 271,
+            "src": "/audio/-Rzp19Fpmuc.mp3",
+            "cat": "genz",
+            "e": "🔥"
+      },
+      {
+            "t": "Hawa Jastai",
+            "a": "John Chamling Rai",
+            "d": "4:33",
+            "ds": 273,
+            "src": "/audio/GFmFgGXpGJQ.mp3",
+            "cat": "genz",
+            "e": "✨"
+      },
+      {
+            "t": "Phool Pati Bhakera",
+            "a": "OSR Movies",
+            "d": "3:56",
+            "ds": 236,
+            "src": "/audio/EhLOksRnCU0.mp3",
+            "cat": "nepali",
+            "e": "🏔️"
+      },
+      {
+            "t": "Kafle - Unko Sweater",
+            "a": "Jhuma Limbu | Sujan Chapagain",
+            "d": "3:41",
+            "ds": 221,
+            "src": "/audio/JqZ7Owwt2Cw.mp3",
+            "cat": "nepali",
+            "e": "🌿"
+      },
+      {
+            "t": "Mohani Lagla Hai",
+            "a": "Narayan Gopal, Asha Bhosle",
+            "d": "6:02",
+            "ds": 362,
+            "src": "/audio/pzcBs8XrvyQ.mp3",
+            "cat": "nepali",
+            "e": "🍃"
+      },
+      {
+            "t": "Bagaichama Najau Timi",
+            "a": "Shreekrishna Shrestha",
+            "d": "6:26",
+            "ds": 386,
+            "src": "/audio/JF5qMTlYz8M.mp3",
+            "cat": "nepali",
+            "e": "🌙"
+      },
+      {
+            "t": "Kehi Mitho Baat Gara",
+            "a": "Narayan Gopal",
+            "d": "6:14",
+            "ds": 374,
+            "src": "/audio/LFR4eMQzUr4.mp3",
+            "cat": "nepali",
+            "e": "🌺"
+      },
+      {
+            "t": "Gajalu Ti Thula Thula Aankha",
+            "a": "Ghulam Ali",
+            "d": "4:53",
+            "ds": 293,
+            "src": "/audio/ftEzdVJWdDA.mp3",
+            "cat": "nepali",
+            "e": "🎋"
+      },
+      {
+            "t": "Kahile Timro Pachhauri Ma",
+            "a": "Udit Narayan | Alok Shree",
+            "d": "5:09",
+            "ds": 309,
+            "src": "/audio/taeE9_EQGwY.mp3",
+            "cat": "nepali",
+            "e": "🦋"
+      },
+      {
+            "t": "Makhamali Pachheuri Sanu",
+            "a": "Muglan Movie Song",
+            "d": "7:54",
+            "ds": 474,
+            "src": "/audio/hXk8mDRUcuU.mp3",
+            "cat": "nepali",
+            "e": "🌾"
+      },
+      {
+            "t": "Syndicate",
+            "a": "Bipul Chettri",
+            "d": "4:48",
+            "ds": 288,
+            "src": "/audio/0bfk90rWV9U.mp3",
+            "cat": "nepali",
+            "e": "🍂"
+      },
+      {
+            "t": "Birsiney Hau Ki",
+            "a": "The Elements | Tuborg Sessions",
+            "d": "5:25",
+            "ds": 325,
+            "src": "/audio/H7bzyggFYSE.mp3",
+            "cat": "nepali",
+            "e": "✨"
+      },
+      {
+            "t": "Guras Ko Fed Muni",
+            "a": "Sabin Rai & The Elektrix",
+            "d": "5:00",
+            "ds": 300,
+            "src": "/audio/3VxA9_qC4As.mp3",
+            "cat": "nepali",
+            "e": "🌼"
+      },
+      {
+            "t": "Sadhai Sadhai (20th Anniv)",
+            "a": "Mantra Band",
+            "d": "7:22",
+            "ds": 442,
+            "src": "/audio/kJXexryKqkc.mp3",
+            "cat": "nepali",
+            "e": "🎐"
+      },
+      {
+            "t": "Prayas",
+            "a": "Samriddhi Rai X Rohit John Chettri",
+            "d": "4:56",
+            "ds": 296,
+            "src": "/audio/46idHCU5sH0.mp3",
+            "cat": "nepali",
+            "e": "🌸"
+      },
+      {
+            "t": "Ko Hau Timi",
+            "a": "Karma Band (OST First Love)",
+            "d": "5:24",
+            "ds": 324,
+            "src": "/audio/imAXlJ8lbHA.mp3",
+            "cat": "nepali",
+            "e": "🌻"
+      },
+      {
+            "t": "Chihanki Pari",
+            "a": "Shirish Khadka",
+            "d": "4:15",
+            "ds": 255,
+            "src": "/audio/BZTueYP5Pro.mp3",
+            "cat": "nepali",
+            "e": "🎻"
+      },
+      {
+            "t": "Maski Maski",
+            "a": "Mt. 8848",
+            "d": "4:27",
+            "ds": 267,
+            "src": "/audio/T2zIT7xQwyM.mp3",
+            "cat": "nepali",
+            "e": "🎸"
+      },
+      {
+            "t": "Kaha Hola Ghar Bara",
+            "a": "Karma Band",
+            "d": "3:38",
+            "ds": 218,
+            "src": "/audio/taNFbSuESXA.mp3",
+            "cat": "nepali",
+            "e": "🥁"
+      },
+      {
+            "t": "Parelima",
+            "a": "1974 AD",
+            "d": "3:55",
+            "ds": 235,
+            "src": "/audio/MqFycWPbwmQ.mp3",
+            "cat": "nepali",
+            "e": "🍁"
+      },
+      {
+            "t": "Bhedako Oon Jasto",
+            "a": "Nepathya",
+            "d": "4:14",
+            "ds": 254,
+            "src": "/audio/Jy0gLuvTfXk.mp3",
+            "cat": "nepali",
+            "e": "🌴"
+      },
+      {
+            "t": "Resham",
+            "a": "Nepathya",
+            "d": "4:28",
+            "ds": 268,
+            "src": "/audio/BpeFXed4K6I.mp3",
+            "cat": "nepali",
+            "e": "🌲"
+      },
+      {
+            "t": "Sadhai Sadhai Mantra",
+            "a": "Mantra",
+            "d": "6:39",
+            "ds": 399,
+            "src": "/audio/3tQZIkWXUXM.mp3",
+            "cat": "nepali",
+            "e": "🎋"
+      },
+      {
+            "t": "Yeti Dherai Maya",
+            "a": "Narayan Gopal | Deepak Jungam",
+            "d": "4:05",
+            "ds": 245,
+            "src": "/audio/x7faDV25Dxs.mp3",
+            "cat": "nepali",
+            "e": "🏔️"
+      },
+      {
+            "t": "Duita Phool Deuralima",
+            "a": "Narayan Gopal",
+            "d": "4:29",
+            "ds": 269,
+            "src": "/audio/G_5xwfyctYE.mp3",
+            "cat": "nepali",
+            "e": "🌿"
+      },
+      {
+            "t": "Tagaro ma Rumal Rakhi",
+            "a": "Kandara Band",
+            "d": "4:47",
+            "ds": 287,
+            "src": "/audio/TS66NNmtl30.mp3",
+            "cat": "nepali",
+            "e": "🍃"
+      },
+      {
+            "t": "Purano Dunga",
+            "a": "Karna Das",
+            "d": "5:00",
+            "ds": 300,
+            "src": "/audio/318s48lGKQU.mp3",
+            "cat": "nepali",
+            "e": "🌙"
+      },
+      {
+            "t": "Hitai Ko Maya",
+            "a": "Sugam Pokharel | Indrakala",
+            "d": "4:01",
+            "ds": 241,
+            "src": "/audio/gnOdx1eJGzI.mp3",
+            "cat": "nepali",
+            "e": "🌺"
+      },
+      {
+            "t": "Banmarale Banai Khayo",
+            "a": "Udit Narayan & Deepa Jha",
+            "d": "5:00",
+            "ds": 300,
+            "src": "/audio/JsCU9l1L5Os.mp3",
+            "cat": "nepali",
+            "e": "🦋"
+      },
+      {
+            "t": "Ke Chha Ra Diu",
+            "a": "Ghulam Ali",
+            "d": "4:18",
+            "ds": 258,
+            "src": "/audio/nB_CE4MKWkk.mp3",
+            "cat": "nepali",
+            "e": "🌾"
+      },
+      {
+            "t": "Dooriyan",
+            "a": "Love Aaj Kal | Mohit Chauhan",
+            "d": "5:38",
+            "ds": 338,
+            "src": "/audio/kPtn26x8TZM.mp3",
+            "cat": "hindi",
+            "e": "🌹"
+      },
+      {
+            "t": "In Dino",
+            "a": "Life in a Metro | Soham",
+            "d": "6:39",
+            "ds": 399,
+            "src": "/audio/P7JyrhGnjhg.mp3",
+            "cat": "hindi",
+            "e": "🌸"
+      },
+      {
+            "t": "Teri Jhuki Nazar",
+            "a": "Murder 3 | Shafqat Amanat Ali",
+            "d": "5:48",
+            "ds": 348,
+            "src": "/audio/xrSZLa14haA.mp3",
+            "cat": "hindi",
+            "e": "💛"
+      },
+      {
+            "t": "Mitwa",
+            "a": "Kabhi Alvida Naa Kehna | Shafqat",
+            "d": "6:01",
+            "ds": 361,
+            "src": "/audio/ru_5PA8cwkE.mp3",
+            "cat": "hindi",
+            "e": "💖"
+      },
+      {
+            "t": "Tere Bina",
+            "a": "Guru | A.R. Rahman",
+            "d": "5:09",
+            "ds": 309,
+            "src": "/audio/_mwqXnTEHSc.mp3",
+            "cat": "hindi",
+            "e": "🎶"
+      },
+      {
+            "t": "Aaj Din Chadheya",
+            "a": "Love Aaj Kal | Rahat Fateh Ali",
+            "d": "5:13",
+            "ds": 313,
+            "src": "/audio/IImcBEHuDRI.mp3",
+            "cat": "hindi",
+            "e": "🪷"
+      },
+      {
+            "t": "Bakhuda Tumhi Ho",
+            "a": "Atif Aslam | Alka Yagnik",
+            "d": "4:42",
+            "ds": 282,
+            "src": "/audio/-kI769Xigik.mp3",
+            "cat": "hindi",
+            "e": "🌼"
+      },
+      {
+            "t": "Zara Sa",
+            "a": "Jannat | KK",
+            "d": "5:08",
+            "ds": 308,
+            "src": "/audio/-8C_2BBVWk8.mp3",
+            "cat": "hindi",
+            "e": "🎸"
+      },
+      {
+            "t": "Zindagi Do Pal Ki",
+            "a": "Kites | KK",
+            "d": "4:01",
+            "ds": 241,
+            "src": "/audio/r-XG86T2jNc.mp3",
+            "cat": "hindi",
+            "e": "🌻"
+      },
+      {
+            "t": "Main Rahoon Ya Na Rahoon",
+            "a": "Armaan Malik",
+            "d": "6:46",
+            "ds": 406,
+            "src": "/audio/Dp6lbdoprZ0.mp3",
+            "cat": "hindi",
+            "e": "💫"
+      },
+      {
+            "t": "Kaise Mujhe Tum Mil Gayi",
+            "a": "Ghajini | Benny Dayal, Shreya",
+            "d": "7:02",
+            "ds": 422,
+            "src": "/audio/MdhjLM-99lQ.mp3",
+            "cat": "hindi",
+            "e": "🎵"
+      },
+      {
+            "t": "Afreen Afreen",
+            "a": "Coke Studio | Rahat Fateh Ali & Momina",
+            "d": "6:45",
+            "ds": 405,
+            "src": "/audio/kw4tT7SCmaY.mp3",
+            "cat": "hindi",
+            "e": "🥀"
+      },
+      {
+            "t": "Shukran Allah",
+            "a": "Sonu Nigam & Shreya Ghoshal",
+            "d": "4:49",
+            "ds": 289,
+            "src": "/audio/HbHpNpIGI7Q.mp3",
+            "cat": "hindi",
+            "e": "🌹"
+      },
+      {
+            "t": "Dil Ibadat",
+            "a": "KK | Tum Mile",
+            "d": "5:25",
+            "ds": 325,
+            "src": "/audio/Tg_AdCE1lEM.mp3",
+            "cat": "hindi",
+            "e": "🌸"
+      },
+      {
+            "t": "Nazm Nazm",
+            "a": "Arko | Bareilly Ki Barfi",
+            "d": "3:44",
+            "ds": 224,
+            "src": "/audio/-9ixKAyz-rA.mp3",
+            "cat": "hindi",
+            "e": "💛"
+      },
+      {
+            "t": "Behti Hawa Sa Tha Woh",
+            "a": "Shaan & Shantanu | 3 Idiots",
+            "d": "5:13",
+            "ds": 313,
+            "src": "/audio/ewvddSUEONQ.mp3",
+            "cat": "hindi",
+            "e": "💖"
+      },
+      {
+            "t": "Chalne Lagi Hai Hawayein",
+            "a": "Abhijeet Bhattacharya",
+            "d": "4:15",
+            "ds": 255,
+            "src": "/audio/mLCyEk6GZLM.mp3",
+            "cat": "hindi",
+            "e": "🎶"
+      },
+      {
+            "t": "Aa Kahin Dur Chale",
+            "a": "Udit Narayan & Alka Yagnik",
+            "d": "5:51",
+            "ds": 351,
+            "src": "/audio/JG5Q0wgfJCc.mp3",
+            "cat": "hindi",
+            "e": "🪷"
+      },
+      {
+            "t": "Kaise Mujhe Tum Mil Gayi (Lyrical)",
+            "a": "Benny Dayal, Shreya Ghoshal",
+            "d": "6:03",
+            "ds": 363,
+            "src": "/audio/uC1iJcYOyeY.mp3",
+            "cat": "hindi",
+            "e": "🌼"
+      },
+      {
+            "t": "Surili Akhiyon Wale",
+            "a": "Rahat Fateh Ali Khan | Veer",
+            "d": "5:35",
+            "ds": 335,
+            "src": "/audio/HqjPEwhiWcE.mp3",
+            "cat": "hindi",
+            "e": "🎸"
+      },
+      {
+            "t": "Rishte Naate",
+            "a": "Rahat Fateh Ali Khan | De Dana Dan",
+            "d": "4:02",
+            "ds": 242,
+            "src": "/audio/2tcGMjvoIsI.mp3",
+            "cat": "hindi",
+            "e": "🌻"
+      },
+      {
+            "t": "Aaye Ho Meri Zindagi Mein",
+            "a": "Udit Narayan | Raja Hindustani",
+            "d": "5:59",
+            "ds": 359,
+            "src": "/audio/D4N3KIlEYpk.mp3",
+            "cat": "hindi",
+            "e": "💫"
+      },
+      {
+            "t": "Piya O Re Piya",
+            "a": "Atif Aslam & Shreya Ghoshal",
+            "d": "4:48",
+            "ds": 288,
+            "src": "/audio/xgbgjQWwwIE.mp3",
+            "cat": "hindi",
+            "e": "🎵"
+      },
+      {
+            "t": "Pehli Nazar Mein",
+            "a": "Atif Aslam | Race",
+            "d": "3:36",
+            "ds": 216,
+            "src": "/audio/BadBAMnPX0I.mp3",
+            "cat": "hindi",
+            "e": "🥀"
+      },
+      {
+            "t": "Hosanna",
+            "a": "A.R. Rahman, Leon D'souza",
+            "d": "5:32",
+            "ds": 332,
+            "src": "/audio/Yz-Y_wU1MOM.mp3",
+            "cat": "hindi",
+            "e": "🌹"
+      },
+      {
+            "t": "Tere Naam Humne Kiya Hai",
+            "a": "Udit Narayan | Tere Naam",
+            "d": "4:42",
+            "ds": 282,
+            "src": "/audio/OMoU0Pfibc4.mp3",
+            "cat": "hindi",
+            "e": "🌸"
+      }
+];
 
     // State Variables[cite: 14]
     let ci = 0;
@@ -1172,6 +1670,44 @@
     audio.addEventListener("pause", () => setP(false));
     audio.addEventListener("ended", () => next());
 
+    // Media Session Setup for continuous mobile background playback & lockscreen controls
+    function updateMediaSession(t) {
+      if ('mediaSession' in navigator) {
+        try {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: t.t,
+            artist: t.a,
+            album: "पाक्दैछ | Kitchen Radio",
+            artwork: [
+              { src: makeArt(t.e), sizes: "128x128", type: "image/png" }
+            ]
+          });
+          navigator.mediaSession.playbackState = ip ? "playing" : "paused";
+        } catch (e) {
+          console.warn("MediaSession update error:", e);
+        }
+      }
+    }
+
+    function initMediaSessionHandlers() {
+      if ('mediaSession' in navigator) {
+        try {
+          navigator.mediaSession.setActionHandler('play', () => play());
+          navigator.mediaSession.setActionHandler('pause', () => pause());
+          navigator.mediaSession.setActionHandler('nexttrack', () => next());
+          navigator.mediaSession.setActionHandler('previoustrack', () => prev());
+          navigator.mediaSession.setActionHandler('seekto', (details) => {
+            if (details.seekTime && audio.duration) {
+              const p = (details.seekTime / audio.duration) * 100;
+              executeSeek(p);
+            }
+          });
+        } catch (e) {
+          console.warn("MediaSession action handler error:", e);
+        }
+      }
+    }
+
     function loadTrack(idx, autoplay = false) {
       if (idx < 0 || idx >= TRK.length) return;
       const t = TRK[idx];
@@ -1186,8 +1722,13 @@
       const img = $("vart");
       if (img) { img.src = makeArt(t.e); img.alt = t.t; }
 
-      audio.src = t.src;
-      audio.load();
+      // Smooth background transition without interrupting mobile audio session
+      const needSourceChange = (audio.src !== location.origin + t.src && !audio.src.endsWith(t.src));
+      if (needSourceChange) {
+        audio.src = t.src;
+      }
+
+      updateMediaSession(t);
 
       if (autoplay) {
         play();
@@ -1239,6 +1780,9 @@
         $("vart").classList.remove("sp");
       }
       $("pbut").setAttribute("aria-label", p ? "Pause" : "Play");
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = p ? "playing" : "paused";
+      }
     }
 
     function togglePlayPause() {
@@ -1400,7 +1944,14 @@
       }
     });
 
-    const CATS = {
+        const CATS = {
+      genz: {
+        label: "Gen-Z Songs",
+        sub: "Trendy, lofi & acoustic Gen-Z favorites",
+        emoji: "⚡",
+        color: "linear-gradient(135deg,#5e17eb,#1f005c)",
+        tag: "genz"
+      },
       nepali: {
         label: "Nepali Songs",
         sub: "Mountain folk & modern Nepali vibes",
@@ -1477,6 +2028,7 @@
     // Initialize with a random song on every page load[cite: 14]
     (function init() {
       try {
+        initMediaSessionHandlers();
         const randomIndex = Math.floor(Math.random() * TRK.length);
         loadTrack(randomIndex, true);
         renderPlaylists();

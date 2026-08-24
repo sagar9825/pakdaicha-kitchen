@@ -1,0 +1,14 @@
+requirements.txt
+server.py
+*.py
+*.bat
+download_*.py
+convert_*.py
+verify_*.py
+test_*.py
+add_*.py
+fix_*.py
+merge_*.py
+check_*.py
+audio_cache/
+new_songs_mp3/

@@ -1822,6 +1822,22 @@
       }
     }
 
+    function updatePositionState() {
+      if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+        const cur = activePlayer.currentTime;
+        const dur = activePlayer.duration || (TRK[ci] ? TRK[ci].ds : 0);
+        if (isFinite(dur) && dur > 0 && isFinite(cur)) {
+          try {
+            navigator.mediaSession.setPositionState({
+              duration: dur,
+              playbackRate: ip ? 1 : 0,
+              position: Math.min(cur, dur)
+            });
+          } catch (e) {}
+        }
+      }
+    }
+
     // High performance live audio updates & lockscreen position sync
     function setupAudioListeners(p) {
       p.addEventListener("timeupdate", (e) => {
@@ -1830,24 +1846,17 @@
         const cur = p.currentTime;
         const dur = p.duration || (TRK[ci] ? TRK[ci].ds : 0);
         if (dur > 0) {
-          const percent = (cur / dur) * 100;
-          $("seek").value = percent;
-          sf(percent);
-          $("tdisp").textContent = fmt(cur) + " / " + (isFinite(p.duration) ? fmt(p.duration) : TRK[ci].d);
-
           // Preload next track 20s before end to prevent lockscreen sleep and low-RAM stutter
           if (dur - cur < 20) {
             preloadNext();
           }
 
-          if ('mediaSession' in navigator && isFinite(dur) && dur > 0 && isFinite(cur)) {
-            try {
-              navigator.mediaSession.setPositionState({
-                duration: dur,
-                playbackRate: 1,
-                position: Math.min(cur, dur)
-              });
-            } catch (err) {}
+          // ONLY update DOM if the player/app is visible to avoid layout stutters on lock screen
+          if (!document.hidden) {
+            const percent = (cur / dur) * 100;
+            $("seek").value = percent;
+            sf(percent);
+            $("tdisp").textContent = fmt(cur) + " / " + (isFinite(p.duration) ? fmt(p.duration) : TRK[ci].d);
           }
         }
       });
@@ -1855,7 +1864,10 @@
       p.addEventListener("loadedmetadata", (e) => {
         if (e.target !== activePlayer) return;
         if (isFinite(p.duration)) {
-          $("tdisp").textContent = fmt(p.currentTime) + " / " + fmt(p.duration);
+          if (!document.hidden) {
+            $("tdisp").textContent = fmt(p.currentTime) + " / " + fmt(p.duration);
+          }
+          updatePositionState();
         }
       });
 
@@ -1995,6 +2007,7 @@
       if (playPromise !== undefined) {
         playPromise.then(() => {
           setP(true);
+          updatePositionState();
         }).catch(err => {
           console.warn("Playback failed:", err);
           setP(false);
@@ -2005,6 +2018,7 @@
     function pause() {
       activePlayer.pause();
       setP(false);
+      updatePositionState();
     }
 
     function setP(p) {
@@ -2095,7 +2109,10 @@
         } catch (err) {
           activePlayer.currentTime = targetTime;
         }
-        $("tdisp").textContent = fmt(targetTime) + " / " + fmt(targetDuration);
+        if (!document.hidden) {
+          $("tdisp").textContent = fmt(targetTime) + " / " + fmt(targetDuration);
+        }
+        updatePositionState();
       }
     }
 
@@ -2111,7 +2128,9 @@
       sf(p);
       const targetDuration = (activePlayer.duration && isFinite(activePlayer.duration)) ? activePlayer.duration : (TRK[ci] ? TRK[ci].ds : 0);
       if (targetDuration > 0) {
-        $("tdisp").textContent = fmt((p / 100) * targetDuration) + " / " + fmt(targetDuration);
+        if (!document.hidden) {
+          $("tdisp").textContent = fmt((p / 100) * targetDuration) + " / " + fmt(targetDuration);
+        }
       }
     });
 
@@ -2149,6 +2168,7 @@
     function vf(v) { $("vslid").style.background = "linear-gradient(to right,#fdf0d0 " + (v * 100) + "%,rgba(255,200,100,.2) " + (v * 100) + "%)"; }
 
     function clk() {
+      if (document.hidden) return;
       const n = new Date();
       let h = n.getHours(), m = n.getMinutes().toString().padStart(2, "0");
       const ap = h >= 12 ? "PM" : "AM";
@@ -2160,6 +2180,7 @@
     // Live cooking count bounded between 10 and 40
     let lb = 24;
     setInterval(() => {
+      if (document.hidden) return;
       lb = Math.max(10, Math.min(40, lb + Math.floor(Math.random() * 5) - 2));
       $("lcnt").textContent = lb;
     }, 3800);

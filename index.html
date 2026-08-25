@@ -967,7 +967,7 @@
 
       <nav class="header-right">
         <button class="pill" onclick="om('playlists')">📻 Playlists</button>
-        <button class="pill" onclick="om('songs')">🎵 Songs</button>
+        <button class="pill" onclick="activeCat = null; om('songs')">🎵 All Songs</button>
       </nav>
     </header>
 
@@ -2102,7 +2102,13 @@
 
     function om(n) {
       if (n === "songs") {
-        if (!activeCat) {
+        if (activeCat && CATS[activeCat]) {
+          const cat = CATS[activeCat];
+          $("songs-back").style.display = "flex";
+          $("songs-heading").innerHTML = cat.emoji + " " + cat.label;
+          $("songs-sub").textContent = cat.sub;
+          renderSongs(activeCat);
+        } else {
           $("songs-back").style.display = "none";
           $("songs-heading").textContent = "🎵 All Songs";
           $("songs-sub").textContent = "";
@@ -2114,7 +2120,6 @@
     }
 
     function cm(n) {
-      if (n === "songs") activeCat = null;
       $("mo-" + n).classList.remove("open");
     }
 
@@ -2190,6 +2195,13 @@
     }
 
     function sel(idx) {
+      // If user selected a song while in a playlist, keep that playlist active
+      if (TRK[idx]) {
+        if (activeCat) {
+          // Keep current active category if track belongs to it, or set to track's category
+          activeCat = TRK[idx].cat || activeCat;
+        }
+      }
       playHistory.push(idx);
       historyIndex = playHistory.length - 1;
       loadTrack(idx, true);

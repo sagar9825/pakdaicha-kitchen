@@ -73,41 +73,14 @@
           rgba(12, 4, 0, 0.94) 100%);
     }
 
-    /* Ambient cooking steam particles */
-    .steam {
+    /* Ambient cooking steam canvas */
+    #steam-canvas {
       position: fixed;
-      bottom: 120px;
-      width: 6px;
-      border-radius: 50%;
-      background: rgba(255, 240, 200, 0.14);
-      filter: blur(4px);
-      animation: sr var(--d, 6s) ease-in infinite var(--dl, 0s);
-      z-index: 2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-    }
-
-    @keyframes sr {
-      0% {
-        transform: translateY(0) scaleX(1);
-        opacity: 0;
-        height: 8px;
-      }
-
-      20% {
-        opacity: 0.6;
-      }
-
-      60% {
-        transform: translateY(-140px) translateX(var(--dx, 12px)) scaleX(1.6);
-        opacity: 0.25;
-        height: 18px;
-      }
-
-      100% {
-        transform: translateY(-260px) translateX(calc(var(--dx, 12px) * 2)) scaleX(2.2);
-        opacity: 0;
-        height: 24px;
-      }
+      z-index: 2;
     }
 
     /* App container */
@@ -913,10 +886,7 @@
 <body>
 
   <div id="bg"></div>
-  <div class="steam" style="left:34%;--d:5.5s;--dl:0s;--dx:12px"></div>
-  <div class="steam" style="left:42%;--d:6.5s;--dl:1.2s;--dx:-10px"></div>
-  <div class="steam" style="left:50%;--d:5s;--dl:.6s;--dx:8px"></div>
-  <div class="steam" style="left:58%;--d:7s;--dl:2s;--dx:-12px"></div>
+  <canvas id="steam-canvas"></canvas>
 
   <!-- Songs Queue Drawer -->
   <div class="mover" id="mo-songs" role="dialog" aria-modal="true">
@@ -1776,19 +1746,11 @@
     let playHistory = [];
     let historyIndex = -1;
 
-    const audioA = new Audio();
-    audioA.preload = "auto";
-    const audioB = new Audio();
-    audioB.preload = "auto";
-
-    let activePlayer = audioA;
-    let inactivePlayer = audioB;
-
+    const audio = new Audio();
+    audio.preload = "auto";
+    const preloader = new Audio();
+    preloader.preload = "auto";
     let preloadedIdx = -1;
-    let nextTrackIdx = -1;
-    let playersUnlocked = false;
-    let currentVolume = 0.85;
-    let isMuted = false;
 
     // Smart Shuffle Across Playlists
     function getNextShuffledIndex() {
@@ -1807,89 +1769,59 @@
     }
 
     function getNextTrackIndex() {
-      if (nextTrackIdx === -1) {
-        nextTrackIdx = getNextShuffledIndex();
-      }
-      return nextTrackIdx;
+      return getNextShuffledIndex();
     }
 
     function preloadNext() {
       const nextIdx = getNextTrackIndex();
       if (nextIdx !== preloadedIdx && TRK[nextIdx]) {
         preloadedIdx = nextIdx;
-        inactivePlayer.src = TRK[nextIdx].src;
-        inactivePlayer.load();
+        preloader.src = TRK[nextIdx].src;
       }
     }
 
-    function updatePositionState() {
-      if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-        const cur = activePlayer.currentTime;
-        const dur = activePlayer.duration || (TRK[ci] ? TRK[ci].ds : 0);
-        if (isFinite(dur) && dur > 0 && isFinite(cur)) {
+    // High performance live audio updates & lockscreen position sync
+    audio.addEventListener("timeupdate", () => {
+      if (isSeeking) return;
+      const cur = audio.currentTime;
+      const dur = audio.duration || (TRK[ci] ? TRK[ci].ds : 0);
+      if (dur > 0) {
+        const p = (cur / dur) * 100;
+        $("seek").value = p;
+        sf(p);
+        $("tdisp").textContent = fmt(cur) + " / " + (isFinite(audio.duration) ? fmt(audio.duration) : TRK[ci].d);
+
+        // Preload next track 20s before end to prevent lockscreen sleep and low-RAM stutter
+        if (dur - cur < 20) {
+          preloadNext();
+        }
+
+        if ('mediaSession' in navigator && isFinite(dur) && dur > 0 && isFinite(cur)) {
           try {
             navigator.mediaSession.setPositionState({
               duration: dur,
-              playbackRate: ip ? 1 : 0,
+              playbackRate: 1,
               position: Math.min(cur, dur)
             });
           } catch (e) {}
         }
       }
-    }
+    });
 
-    // High performance live audio updates & lockscreen position sync
-    function setupAudioListeners(p) {
-      p.addEventListener("timeupdate", (e) => {
-        if (e.target !== activePlayer) return;
-        if (isSeeking) return;
-        const cur = p.currentTime;
-        const dur = p.duration || (TRK[ci] ? TRK[ci].ds : 0);
-        if (dur > 0) {
-          // Preload next track 20s before end to prevent lockscreen sleep and low-RAM stutter
-          if (dur - cur < 20) {
-            preloadNext();
-          }
+    audio.addEventListener("loadedmetadata", () => {
+      if (isFinite(audio.duration)) {
+        $("tdisp").textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+      }
+    });
 
-          // ONLY update DOM if the player/app is visible to avoid layout stutters on lock screen
-          if (!document.hidden) {
-            const percent = (cur / dur) * 100;
-            $("seek").value = percent;
-            sf(percent);
-            $("tdisp").textContent = fmt(cur) + " / " + (isFinite(p.duration) ? fmt(p.duration) : TRK[ci].d);
-          }
-        }
-      });
+    audio.addEventListener("play", () => setP(true));
+    audio.addEventListener("pause", () => setP(false));
 
-      p.addEventListener("loadedmetadata", (e) => {
-        if (e.target !== activePlayer) return;
-        if (isFinite(p.duration)) {
-          if (!document.hidden) {
-            $("tdisp").textContent = fmt(p.currentTime) + " / " + fmt(p.duration);
-          }
-          updatePositionState();
-        }
-      });
-
-      p.addEventListener("play", (e) => {
-        if (e.target !== activePlayer) return;
-        setP(true);
-      });
-
-      p.addEventListener("pause", (e) => {
-        if (e.target !== activePlayer) return;
-        setP(false);
-      });
-
-      p.addEventListener("ended", (e) => {
-        if (e.target !== activePlayer) return;
-        const nextIdx = getNextTrackIndex();
-        loadTrack(nextIdx, true);
-      });
-    }
-
-    setupAudioListeners(audioA);
-    setupAudioListeners(audioB);
+    // Immediate synchronous hand-off when track ends on lockscreen
+    audio.addEventListener("ended", () => {
+      const nextIdx = getNextTrackIndex();
+      loadTrack(nextIdx, true);
+    });
 
     // Media Session Setup for continuous mobile background playback & lockscreen controls
     function updateMediaSession(t) {
@@ -1919,8 +1851,8 @@
           navigator.mediaSession.setActionHandler('nexttrack', () => next());
           navigator.mediaSession.setActionHandler('previoustrack', () => prev());
           navigator.mediaSession.setActionHandler('seekto', (details) => {
-            if (details.seekTime && activePlayer.duration) {
-              const p = (details.seekTime / activePlayer.duration) * 100;
+            if (details.seekTime && audio.duration) {
+              const p = (details.seekTime / audio.duration) * 100;
               executeSeek(p);
             }
           });
@@ -1930,32 +1862,25 @@
       }
     }
 
-    function swapPlayers() {
-      const temp = activePlayer;
-      activePlayer = inactivePlayer;
-      inactivePlayer = temp;
-    }
-
     function loadTrack(idx, autoplay = false) {
       if (idx < 0 || idx >= TRK.length) return;
       const t = TRK[idx];
       ci = idx;
 
-      // Swap immediately if already preloaded, otherwise load directly on active player
-      if (idx === preloadedIdx && inactivePlayer.src) {
-        swapPlayers();
-      } else {
-        activePlayer.src = t.src;
-        activePlayer.load();
-      }
+      // Instant synchronous assignment to prevent mobile OS task suspension
+      audio.src = t.src;
 
-      // Ensure sync states
-      activePlayer.volume = currentVolume;
-      activePlayer.muted = isMuted;
+      $("tttl").textContent = t.t;
+      $("tart").textContent = t.a;
+      $("tdisp").textContent = "0:00 / " + t.d;
+      $("seek").value = 0;
+      sf(0);
 
-      // Reset preloaded index as it was consumed
-      preloadedIdx = -1;
-      nextTrackIdx = -1;
+      const img = $("vart");
+      if (img) { img.src = makeArt(t.e); img.alt = t.t; }
+
+      updateMediaSession(t);
+      renderSongs(activeCat);
 
       if (autoplay) {
         play();
@@ -1963,39 +1888,11 @@
         setP(false);
       }
 
-      // Defer DOM updates to keep thread free for synchronous play execution
-      setTimeout(() => {
-        $("tttl").textContent = t.t;
-        $("tart").textContent = t.a;
-        $("tdisp").textContent = "0:00 / " + t.d;
-        $("seek").value = 0;
-        sf(0);
-
-        const img = $("vart");
-        if (img) { img.src = makeArt(t.e); img.alt = t.t; }
-
-        updateMediaSession(t);
-        renderSongs(activeCat);
-      }, 0);
-
       // Schedule next preloader in background
       setTimeout(preloadNext, 2500);
     }
 
     function play() {
-      if (!playersUnlocked) {
-        playersUnlocked = true;
-        // Pre-unlock inactive player under same user interaction scope
-        const p2 = inactivePlayer.play();
-        if (p2 !== undefined) {
-          p2.then(() => {
-            inactivePlayer.pause();
-          }).catch(() => {
-            playersUnlocked = false;
-          });
-        }
-      }
-
       if (ho) {
         try {
           ac = ac || new (window.AudioContext || window.webkitAudioContext)();
@@ -2003,22 +1900,20 @@
         } catch (e) {}
       }
 
-      const playPromise = activePlayer.play();
+      const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           setP(true);
-          updatePositionState();
         }).catch(err => {
-          console.warn("Playback failed:", err);
+          console.warn("Playback waiting for user click:", err);
           setP(false);
         });
       }
     }
 
     function pause() {
-      activePlayer.pause();
+      audio.pause();
       setP(false);
-      updatePositionState();
     }
 
     function setP(p) {
@@ -2045,7 +1940,7 @@
       if (ip) {
         pause();
       } else {
-        if (!activePlayer.src || activePlayer.src === "" || activePlayer.src.endsWith("/")) {
+        if (!audio.src || audio.src === "" || audio.src.endsWith("/")) {
           loadTrack(ci, true);
         } else {
           play();
@@ -2097,22 +1992,19 @@
     function executeSeek(percentVal) {
       const p = parseFloat(percentVal);
       sf(p);
-      const targetDuration = (activePlayer.duration && isFinite(activePlayer.duration)) ? activePlayer.duration : (TRK[ci] ? TRK[ci].ds : 0);
+      const targetDuration = (audio.duration && isFinite(audio.duration)) ? audio.duration : (TRK[ci] ? TRK[ci].ds : 0);
       if (targetDuration > 0) {
         const targetTime = (p / 100) * targetDuration;
         try {
-          if ('fastSeek' in activePlayer) {
-            activePlayer.fastSeek(targetTime);
+          if ('fastSeek' in audio) {
+            audio.fastSeek(targetTime);
           } else {
-            activePlayer.currentTime = targetTime;
+            audio.currentTime = targetTime;
           }
         } catch (err) {
-          activePlayer.currentTime = targetTime;
+          audio.currentTime = targetTime;
         }
-        if (!document.hidden) {
-          $("tdisp").textContent = fmt(targetTime) + " / " + fmt(targetDuration);
-        }
-        updatePositionState();
+        $("tdisp").textContent = fmt(targetTime) + " / " + fmt(targetDuration);
       }
     }
 
@@ -2126,11 +2018,9 @@
       isSeeking = true;
       const p = parseFloat(e.target.value);
       sf(p);
-      const targetDuration = (activePlayer.duration && isFinite(activePlayer.duration)) ? activePlayer.duration : (TRK[ci] ? TRK[ci].ds : 0);
+      const targetDuration = (audio.duration && isFinite(audio.duration)) ? audio.duration : (TRK[ci] ? TRK[ci].ds : 0);
       if (targetDuration > 0) {
-        if (!document.hidden) {
-          $("tdisp").textContent = fmt((p / 100) * targetDuration) + " / " + fmt(targetDuration);
-        }
+        $("tdisp").textContent = fmt((p / 100) * targetDuration) + " / " + fmt(targetDuration);
       }
     });
 
@@ -2143,22 +2033,19 @@
     $("vslid").addEventListener("input", e => {
       const v = parseFloat(e.target.value);
       vf(v);
-      currentVolume = v;
-      audioA.volume = v;
-      audioB.volume = v;
+      audio.volume = v;
       $("vico").textContent = v === 0 ? "🔇" : (v < 0.4 ? "🔉" : "🔊");
     });
 
     // Mute toggle
     $("vico").addEventListener("click", () => {
-      isMuted = !isMuted;
+      mu = !mu;
       const s = $("vslid");
-      audioA.muted = isMuted;
-      audioB.muted = isMuted;
-      if (isMuted) {
+      audio.muted = mu;
+      if (mu) {
         s.value = 0; vf(0); $("vico").textContent = "🔇";
       } else {
-        s.value = currentVolume || 0.85; vf(currentVolume || 0.85); $("vico").textContent = "🔊";
+        s.value = audio.volume || 0.85; vf(audio.volume || 0.85); $("vico").textContent = "🔊";
       }
     });
 
@@ -2168,7 +2055,6 @@
     function vf(v) { $("vslid").style.background = "linear-gradient(to right,#fdf0d0 " + (v * 100) + "%,rgba(255,200,100,.2) " + (v * 100) + "%)"; }
 
     function clk() {
-      if (document.hidden) return;
       const n = new Date();
       let h = n.getHours(), m = n.getMinutes().toString().padStart(2, "0");
       const ap = h >= 12 ? "PM" : "AM";
@@ -2180,7 +2066,6 @@
     // Live cooking count bounded between 10 and 40
     let lb = 24;
     setInterval(() => {
-      if (document.hidden) return;
       lb = Math.max(10, Math.min(40, lb + Math.floor(Math.random() * 5) - 2));
       $("lcnt").textContent = lb;
     }, 3800);
@@ -2325,7 +2210,7 @@
       }).join("");
     }
 
-    // Initialize with a random song on every page load[cite: 14]
+    // Initialize with a random song on every page load
     (function init() {
       try {
         initMediaSessionHandlers();
@@ -2338,6 +2223,277 @@
       } catch (err) {
         console.warn("Init warning:", err);
       }
+    })();
+
+    // -------------------------------------------------------------
+    // Super Natural Atmospheric Kitchen Steam Particle Simulation
+    // -------------------------------------------------------------
+    (function initSteamEngine() {
+      const canvas = $("steam-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+
+      // Offscreen pre-rendered ultra-soft feathered vapor textures
+      const puffCanvases = [];
+      const PUFF_SIZE = 128;
+
+      function createPuffTextures() {
+        puffCanvases.length = 0;
+        const puffVariations = [
+          // 1. Soft sunlight warm vapor
+          [
+            [0, "rgba(255, 250, 240, 0.28)"],
+            [0.3, "rgba(252, 245, 230, 0.16)"],
+            [0.6, "rgba(245, 236, 218, 0.07)"],
+            [0.85, "rgba(238, 226, 208, 0.02)"],
+            [1, "rgba(230, 215, 195, 0)"]
+          ],
+          // 2. Light airy mist
+          [
+            [0, "rgba(255, 252, 245, 0.22)"],
+            [0.35, "rgba(250, 244, 232, 0.12)"],
+            [0.7, "rgba(242, 234, 218, 0.04)"],
+            [1, "rgba(225, 215, 198, 0)"]
+          ],
+          // 3. Delicate whisper plume
+          [
+            [0, "rgba(255, 248, 238, 0.18)"],
+            [0.4, "rgba(248, 240, 225, 0.09)"],
+            [0.75, "rgba(238, 228, 212, 0.02)"],
+            [1, "rgba(225, 215, 195, 0)"]
+          ]
+        ];
+
+        puffVariations.forEach(stops => {
+          const offCanvas = document.createElement("canvas");
+          offCanvas.width = PUFF_SIZE;
+          offCanvas.height = PUFF_SIZE;
+          const offCtx = offCanvas.getContext("2d");
+          const rad = PUFF_SIZE / 2;
+          const grad = offCtx.createRadialGradient(rad, rad, 0, rad, rad, rad);
+          stops.forEach(([pos, col]) => grad.addColorStop(pos, col));
+          offCtx.fillStyle = grad;
+          offCtx.beginPath();
+          offCtx.arc(rad, rad, rad, 0, Math.PI * 2);
+          offCtx.fill();
+          puffCanvases.push(offCanvas);
+        });
+      }
+      createPuffTextures();
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
+
+      function getEmitters() {
+        const isMob = width <= 680;
+        const imgW = isMob ? 1453 : 1376;
+        const imgH = isMob ? 2609 : 768;
+        const screenAspect = width / height;
+        const imgAspect = imgW / imgH;
+
+        let renderedW, renderedH, offsetX, offsetY;
+        if (screenAspect > imgAspect) {
+          renderedW = width;
+          renderedH = width / imgAspect;
+          offsetX = 0;
+          offsetY = 0;
+        } else {
+          renderedH = height;
+          renderedW = height * imgAspect;
+          offsetY = 0;
+          offsetX = (width - renderedW) / 2;
+        }
+
+        const scale = renderedW / imgW;
+
+        if (isMob) {
+          return [
+            // 1. Main Curry Frying Pan (where the woman stirs with the ladle)
+            {
+              x: offsetX + 0.6125 * renderedW,
+              y: offsetY + 0.4638 * renderedH,
+              spread: 44 * scale,
+              rate: 0.95,
+              vyMin: -0.75,
+              vyMax: -1.35,
+              maxAge: 175,
+              sizeMin: 14 * scale,
+              sizeMax: 26 * scale,
+              growth: 0.44 * scale,
+              maxOpacity: 0.34
+            },
+            // 2. Bottom Scene Curry Frying Pan
+            {
+              x: offsetX + 0.1858 * renderedW,
+              y: offsetY + 0.8471 * renderedH,
+              spread: 34 * scale,
+              rate: 0.55,
+              vyMin: -0.70,
+              vyMax: -1.25,
+              maxAge: 145,
+              sizeMin: 12 * scale,
+              sizeMax: 22 * scale,
+              growth: 0.36 * scale,
+              maxOpacity: 0.28
+            },
+            // 3. Hot Tea Cup
+            {
+              x: offsetX + 0.6820 * renderedW,
+              y: offsetY + 0.8030 * renderedH,
+              spread: 10 * scale,
+              rate: 0.35,
+              vyMin: -0.55,
+              vyMax: -0.95,
+              maxAge: 120,
+              sizeMin: 8 * scale,
+              sizeMax: 14 * scale,
+              growth: 0.25 * scale,
+              maxOpacity: 0.26
+            }
+          ];
+        } else {
+          return [
+            // Desktop Curry Frying Pan (where the woman stirs with the ladle)
+            {
+              x: offsetX + 0.4724 * renderedW,
+              y: offsetY + 0.6706 * renderedH,
+              spread: 48 * scale,
+              rate: 0.95,
+              vyMin: -0.85,
+              vyMax: -1.45,
+              maxAge: 180,
+              sizeMin: 16 * scale,
+              sizeMax: 28 * scale,
+              growth: 0.46 * scale,
+              maxOpacity: 0.34
+            }
+          ];
+        }
+      }
+
+      class SteamParticle {
+        constructor(emitter) {
+          this.init(emitter);
+        }
+
+        init(em) {
+          const spreadOffset = (Math.random() - 0.5) * em.spread;
+          this.x = em.x + spreadOffset;
+          this.y = em.y + (Math.random() - 0.5) * 4;
+          this.vx = (Math.random() - 0.5) * 0.35;
+          this.vy = em.vyMin + Math.random() * (em.vyMax - em.vyMin);
+          this.size = em.sizeMin + Math.random() * (em.sizeMax - em.sizeMin);
+          this.growth = em.growth;
+          this.age = 0;
+          this.maxAge = em.maxAge + (Math.random() - 0.5) * 35;
+          this.maxOpacity = em.maxOpacity;
+          this.rot = Math.random() * Math.PI * 2;
+          this.vrot = (Math.random() - 0.5) * 0.012;
+          this.swirlFreq1 = 0.018 + Math.random() * 0.015;
+          this.swirlFreq2 = 0.045 + Math.random() * 0.02;
+          this.swirlAmp1 = 0.45 + Math.random() * 0.4;
+          this.swirlAmp2 = 0.2 + Math.random() * 0.25;
+          this.phase1 = Math.random() * Math.PI * 2;
+          this.phase2 = Math.random() * Math.PI * 2;
+          this.puffIndex = Math.floor(Math.random() * puffCanvases.length);
+          this.dead = false;
+        }
+
+        update(dt) {
+          this.age += dt;
+          if (this.age >= this.maxAge) {
+            this.dead = true;
+            return;
+          }
+
+          // Gentle thermal buoyancy and cooling deceleration
+          this.vy *= Math.pow(0.994, dt);
+
+          // Natural harmonic convection currents
+          const drift = Math.sin(this.age * this.swirlFreq1 + this.phase1) * this.swirlAmp1
+                      + Math.cos(this.age * this.swirlFreq2 + this.phase2) * this.swirlAmp2;
+
+          this.x += (this.vx + drift) * dt;
+          this.y += this.vy * dt;
+          this.size += this.growth * dt;
+          this.rot += this.vrot * dt;
+        }
+
+        draw(c) {
+          const lifeProgress = this.age / this.maxAge;
+          let alpha = 0;
+          if (lifeProgress < 0.16) {
+            // Smooth natural fade-in as vapor rises from liquid
+            alpha = (lifeProgress / 0.16) * this.maxOpacity;
+          } else {
+            // Smooth diffusion fade-out
+            alpha = Math.pow(1 - (lifeProgress - 0.16) / 0.84, 1.35) * this.maxOpacity;
+          }
+
+          if (alpha <= 0.001) return;
+
+          c.save();
+          c.globalAlpha = alpha;
+          c.translate(this.x, this.y);
+          c.rotate(this.rot);
+          const halfSize = this.size / 2;
+          c.drawImage(puffCanvases[this.puffIndex], -halfSize, -halfSize, this.size, this.size);
+          c.restore();
+        }
+      }
+
+      const particles = [];
+      let lastTime = performance.now();
+
+      function loop(now) {
+        requestAnimationFrame(loop);
+
+        if (document.hidden) {
+          lastTime = now;
+          return;
+        }
+
+        const dt = Math.min((now - lastTime) / 16.666, 2.0);
+        lastTime = now;
+
+        ctx.clearRect(0, 0, width, height);
+
+        const emitters = getEmitters();
+
+        // Continuous smooth emission
+        emitters.forEach(em => {
+          if (Math.random() < em.rate * dt) {
+            let p = particles.find(pt => pt.dead);
+            if (p) {
+              p.init(em);
+            } else if (particles.length < 130) {
+              particles.push(new SteamParticle(em));
+            }
+          }
+        });
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (!p.dead) {
+            p.update(dt);
+            p.draw(ctx);
+          }
+        }
+      }
+
+      requestAnimationFrame(loop);
     })();
   </script>
 </body>
